@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kopeka-dev-52b32": {
+      "hosting": {
+        "kopeka-pwa": [
+          "kopeka-dev-52b32"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kopeka-dev-52b32"
+  }
+}
