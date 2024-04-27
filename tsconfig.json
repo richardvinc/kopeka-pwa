@@ -27,6 +27,8 @@
       "@app/shared/*": ["./src/shared/*"],
       "@app/components": ["./src/shared/components"],
       "@app/components/*": ["./src/shared/components/*"],
+      "@app/service": ["./src/shared/service"],
+      "@app/service/*": ["./src/shared/service/*"],
       "@app/libs": ["./src/libs"],
       "@app/libs/*": ["./src/libs/*"]
     }

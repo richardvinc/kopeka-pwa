@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 
 @Component({
   selector: 'app-header',
@@ -8,31 +9,37 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   imports: [CommonModule, RouterLink],
 })
-export class HeaderComponent {
-  showMenu = false;
-  toggleNavbar() {
-    this.showMenu = !this.showMenu;
+export class HeaderComponent implements OnInit, OnDestroy {
+  $title;
+  title: string = 'Homeeeeeeeee';
+  constructor(
+    private router: Router,
+    private appConfigService: AppConfigService
+  ) {
+    this.$title = this.appConfigService.getPageTitle().subscribe((title) => {
+      this.title = title;
+    });
   }
-  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.$title.unsubscribe();
+  }
 
   goToHome() {
     this.router.navigate(['/home']);
-    this.showMenu = false;
   }
   goToTimeline() {
     this.router.navigate(['/timeline']);
-    this.showMenu = false;
   }
   goToMap() {
     this.router.navigate(['/map']);
-    this.showMenu = false;
   }
   goToReport() {
     this.router.navigate(['/report']);
-    this.showMenu = false;
   }
   goToLogin() {
     this.router.navigate(['/login'], { replaceUrl: true });
-    this.showMenu = false;
   }
 }

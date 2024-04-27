@@ -1,5 +1,5 @@
 <nav
-  class="fixed w-full flex-1 flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 mb-3"
+  class="fixed w-full flex-1 flex flex-wrap items-center justify-between px-2 py-3 bg-gray-100 mb-3"
 >
   <div
     class="container px-4 mx-auto flex flex-wrap items-center justify-between"
@@ -8,15 +8,14 @@
       class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start"
     >
       <a
-        class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-        (click)="goToHome()"
+        class="text-sm w-full text-center font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-slate-500"
       >
-        HOME
+        {{ title }}
       </a>
+      <!-- notification button -->
       <button
-        class="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+        class="fixed right-4 text-slate-500 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
         type="button"
-        (click)="toggleNavbar()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -29,61 +28,10 @@
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
           />
         </svg>
       </button>
-    </div>
-    <div
-      [ngClass]="{ hidden: !showMenu, flex: showMenu }"
-      class="lg:flex lg:flex-grow items-center"
-    >
-      <ul class="flex flex-col lg:flex-row list-none ml-auto">
-        <li class="nav-item">
-          <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-            (click)="goToTimeline()"
-          >
-            <i
-              class="fab fa-facebook-square text-lg leading-lg text-white opacity-75"
-            ></i
-            ><span class="ml-2">timeline</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-            (click)="goToMap()"
-          >
-            <i
-              class="fab fa-twitter text-lg leading-lg text-white opacity-75"
-            ></i
-            ><span class="ml-2">Map Page</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-            (click)="goToReport()"
-          >
-            <i
-              class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
-            ></i
-            ><span class="ml-2">Report Form</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-            (click)="goToLogin()"
-          >
-            <i
-              class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
-            ></i
-            ><span class="ml-2">Login page</span>
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
 </nav>
