@@ -1,0 +1,89 @@
+<nav
+  class="fixed w-full flex-1 flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-500 mb-3"
+>
+  <div
+    class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+  >
+    <div
+      class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start"
+    >
+      <a
+        class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
+        (click)="goToHome()"
+      >
+        HOME
+      </a>
+      <button
+        class="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+        type="button"
+        (click)="toggleNavbar()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      [ngClass]="{ hidden: !showMenu, flex: showMenu }"
+      class="lg:flex lg:flex-grow items-center"
+    >
+      <ul class="flex flex-col lg:flex-row list-none ml-auto">
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+            (click)="goToTimeline()"
+          >
+            <i
+              class="fab fa-facebook-square text-lg leading-lg text-white opacity-75"
+            ></i
+            ><span class="ml-2">timeline</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+            (click)="goToMap()"
+          >
+            <i
+              class="fab fa-twitter text-lg leading-lg text-white opacity-75"
+            ></i
+            ><span class="ml-2">Map Page</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+            (click)="goToReport()"
+          >
+            <i
+              class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
+            ></i
+            ><span class="ml-2">Report Form</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+            (click)="goToLogin()"
+          >
+            <i
+              class="fab fa-pinterest text-lg leading-lg text-white opacity-75"
+            ></i
+            ><span class="ml-2">Login page</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
