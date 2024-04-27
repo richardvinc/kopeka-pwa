@@ -1,93 +1,160 @@
 <div
-  class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600"
+  class="fixed bottom-0 z-50 w-full -translate-x-1/2 bg-white border-t border-gray-200 left-1/2"
 >
-  <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+  <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
     <button
+      data-tooltip-target="tooltip-home"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center p-4"
+      routerLink="/home"
+      routerLinkActive="border-solid border-t-2 border-blue-500"
     >
       <svg
-        class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"
-        />
-      </svg>
-      <span
-        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        >Home</span
-      >
-    </button>
-    <button
-      type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
-    >
-      <svg
-        class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path
-          d="M11.074 4 8.442.408A.95.95 0 0 0 7.014.254L2.926 4h8.148ZM9 13v-1a4 4 0 0 1 4-4h6V6a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2h-6a4 4 0 0 1-4-4Z"
-        />
-        <path
-          d="M19 10h-6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1Zm-4.5 3.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM12.62 4h2.78L12.539.41a1.086 1.086 0 1 0-1.7 1.352L12.62 4Z"
-        />
-      </svg>
-      <span
-        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        >Wallet</span
-      >
-    </button>
-    <button
-      type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
-    >
-      <svg
-        class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
-        viewBox="0 0 20 20"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        routerLinkActive="!stroke-blue-500"
       >
         <path
-          stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"
+          d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
         />
       </svg>
-      <span
-        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        >Settings</span
-      >
+      <span class="sr-only">Home</span>
     </button>
+    <div
+      id="tooltip-home"
+      role="tooltip"
+      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+    >
+      Home
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
     <button
+      data-tooltip-target="tooltip-timeline"
       type="button"
-      class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
+      class="inline-flex flex-col items-center justify-center p-4"
+      routerLink="/timeline"
+      routerLinkActive="border-solid border-t-2 border-blue-500"
     >
       <svg
-        class="w-5 h-5 mb-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 20 20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 stroke-slate-500"
+        routerLinkActive="!stroke-blue-500"
       >
         <path
-          d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"
+          d="M3 3C2.44772 3 2 3.44772 2 4V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V4C22 3.44772 21.5523 3 21 3H3ZM4 19V5H20V19H4ZM14 7H6V9H14V7ZM18 15V17H10V15H18ZM16 11H8V13H16V11Z"
+        ></path>
+      </svg>
+      <span class="sr-only">Timeline</span>
+    </button>
+    <div
+      id="tooltip-timeline"
+      role="tooltip"
+      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+    >
+      Timeline
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+    <button
+      data-tooltip-target="tooltip-report"
+      type="button"
+      class="inline-flex flex-col items-center justify-center p-4 hover:bg-gray-50"
+      routerLink="/report"
+      routerLinkActive="border-solid border-t-2 border-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        routerLinkActive="!stroke-blue-500"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
         />
       </svg>
-      <span
-        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-        >Profile</span
-      >
+      <span class="sr-only">Add a Report</span>
     </button>
+    <div
+      id="tooltip-report"
+      role="tooltip"
+      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+    >
+      Add a Report
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+    <button
+      data-tooltip-target="tooltip-map"
+      type="button"
+      class="inline-flex flex-col items-center justify-center p-4"
+      routerLink="/map"
+      routerLinkActive="border-solid border-t-2 border-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        routerLinkActive="!stroke-blue-500"
+      >
+        <path
+          d="M9.97487 8.97487C11.3417 7.60804 11.3417 5.39196 9.97487 4.02513C8.60804 2.65829 6.39196 2.65829 5.02513 4.02513C3.65829 5.39196 3.65829 7.60804 5.02513 8.97487L7.5 11.4497L9.97487 8.97487ZM7.5 14.2782L3.61091 10.3891C1.46303 8.2412 1.46303 4.7588 3.61091 2.61091C5.7588 0.463029 9.2412 0.463029 11.3891 2.61091C13.537 4.7588 13.537 8.2412 11.3891 10.3891L7.5 14.2782ZM7.5 8C6.67157 8 6 7.32843 6 6.5C6 5.67157 6.67157 5 7.5 5C8.32843 5 9 5.67157 9 6.5C9 7.32843 8.32843 8 7.5 8ZM16.5 20.4497L18.9749 17.9749C20.3417 16.608 20.3417 14.392 18.9749 13.0251C17.608 11.6583 15.392 11.6583 14.0251 13.0251C12.6583 14.392 12.6583 16.608 14.0251 17.9749L16.5 20.4497ZM20.3891 19.3891L16.5 23.2782L12.6109 19.3891C10.463 17.2412 10.463 13.7588 12.6109 11.6109C14.7588 9.46303 18.2412 9.46303 20.3891 11.6109C22.537 13.7588 22.537 17.2412 20.3891 19.3891ZM16.5 17C15.6716 17 15 16.3284 15 15.5C15 14.6716 15.6716 14 16.5 14C17.3284 14 18 14.6716 18 15.5C18 16.3284 17.3284 17 16.5 17Z"
+        ></path>
+      </svg>
+      <span class="sr-only">Maps</span>
+    </button>
+    <div
+      id="tooltip-map"
+      role="tooltip"
+      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+    >
+      Maps
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+    <button
+      data-tooltip-target="tooltip-profile"
+      type="button"
+      class="inline-flex flex-col items-center justify-center p-4"
+      routerLink="/profile"
+      routerLinkActive="border-solid border-t-2 border-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        routerLinkActive="!stroke-blue-500"
+      >
+        <path
+          d="M7.61713 8.71233L10.8222 6.38373C11.174 6.12735 11.6087 5.98543 12.065 6.0008C13.1764 6.02813 14.1524 6.75668 14.4919 7.82036C14.6782 8.40431 14.8481 8.79836 15.0017 9.0025C15.914 10.2155 17.3655 11 19.0002 11V13C16.8255 13 14.8825 12.0083 13.5986 10.4526L12.901 14.4085L14.9621 16.138L17.1853 22.246L15.3059 22.93L13.266 17.3256L9.87576 14.4808C9.32821 14.0382 9.03139 13.3192 9.16231 12.5767L9.67091 9.6923L8.99407 10.1841L6.86706 13.1116L5.24902 11.9361L7.60016 8.7L7.61713 8.71233ZM13.5002 5.5C12.3956 5.5 11.5002 4.60457 11.5002 3.5C11.5002 2.39543 12.3956 1.5 13.5002 1.5C14.6047 1.5 15.5002 2.39543 15.5002 3.5C15.5002 4.60457 14.6047 5.5 13.5002 5.5ZM10.5286 18.6813L7.31465 22.5116L5.78257 21.226L8.75774 17.6803L9.50426 15.5L11.2954 17L10.5286 18.6813Z"
+        ></path>
+      </svg>
+      <span class="sr-only">Profile</span>
+    </button>
+    <div
+      id="tooltip-profile"
+      role="tooltip"
+      class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+    >
+      Profile
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
 </div>

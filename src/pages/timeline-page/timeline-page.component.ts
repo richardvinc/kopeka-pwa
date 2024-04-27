@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-timeline-page',
   standalone: true,
-  template: `<div>Timeline Page</div>`,
+  templateUrl: './timeline-page.component.html',
 })
 export class TimelinePageComponent {
   constructor() {}

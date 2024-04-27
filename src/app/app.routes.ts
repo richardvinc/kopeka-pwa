@@ -40,6 +40,13 @@ export const routes: Routes = [
             (m) => m.ReportFormPageComponent
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('../pages/profile-page/profile-page.component').then(
+            (m) => m.ProfilePageComponent
+          ),
+      },
     ],
   },
   {

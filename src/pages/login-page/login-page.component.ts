@@ -4,10 +4,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  template: `
-    <div>Login Page</div>
-    <div><a routerLink="/home">Go to home page</a></div>
-  `,
+  templateUrl: './login-page.component.html',
   imports: [RouterLink],
 })
 export class LoginPageComponent {
