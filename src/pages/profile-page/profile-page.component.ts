@@ -17,9 +17,7 @@ export class ProfilePageComponent {
     private router: Router
   ) {
     this.appConfigService.setPageTitle('Profile');
-    this.authService.user$.subscribe((user) => {
-      this.user = user;
-    });
+    this.user = this.authService.user;
   }
 
   async logout() {

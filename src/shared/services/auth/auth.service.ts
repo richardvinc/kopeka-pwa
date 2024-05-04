@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   idToken,
   signInWithPopup,
+  User,
   user,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -39,6 +40,14 @@ export class AuthService {
         console.log('No ID Token');
       }
     });
+  }
+
+  get user(): User | null {
+    return this.auth.currentUser;
+  }
+
+  get isAuthenticated(): boolean {
+    return !!this.user;
   }
 
   async login() {
