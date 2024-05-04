@@ -1,3 +1,8 @@
+import {
+  AuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
 import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from '@app/pages/not-found-page/not-found-page.component';
 import { ContainerComponent } from '@app/shared/components/container/container.component';
@@ -5,25 +10,37 @@ import { ContainerComponent } from '@app/shared/components/container/container.c
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: ContainerComponent,
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'explore',
         pathMatch: 'full',
       },
       {
-        path: 'home',
+        path: 'explore',
         loadComponent: () =>
-          import('../pages/home-page/home-page.component').then(
-            (m) => m.HomePageComponent
+          import('../pages/explore-page/explore-page.component').then(
+            (m) => m.ExplorePageComponent
           ),
       },
       {
-        path: 'timeline',
+        path: 'explore/detail',
         loadComponent: () =>
-          import('../pages/timeline-page/timeline-page.component').then(
-            (m) => m.TimelinePageComponent
+          import(
+            '../pages/explore-page/explore-detail/explore-detail-page.component'
+          ).then((m) => m.ExploreDetailPageComponent),
+      },
+      {
+        path: 'campaign',
+        loadComponent: () =>
+          import('../pages/campaign-page/campaign-page.component').then(
+            (m) => m.CampaignPageComponent
           ),
       },
       {
@@ -48,6 +65,8 @@ export const routes: Routes = [
           ),
       },
     ],
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
     path: 'login',
@@ -55,11 +74,8 @@ export const routes: Routes = [
       import('../pages/login-page/login-page.component').then(
         (m) => m.LoginPageComponent
       ),
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {
     path: '**',

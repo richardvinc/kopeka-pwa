@@ -220,6 +220,14 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/google-maps@17.3.7":
+  version "17.3.7"
+  resolved "https://registry.yarnpkg.com/@angular/google-maps/-/google-maps-17.3.7.tgz#b78a519b558435c215963b5d8fc7324f5d857f41"
+  integrity sha512-ADcFmYofktLmD92jCpFaQBF8KnWvk2ZMVG926fZ7VTOuYhETS+okmscRv9uejRQMntZEfpcEEZ+huv8k3+Dt0w==
+  dependencies:
+    "@types/google.maps" "^3.54.10"
+    tslib "^2.3.0"
+
 "@angular/platform-browser-dynamic@^17.3.0":
   version "17.3.3"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-17.3.3.tgz#0e747cecb51ebaec53c11ebfef289972b793484d"
@@ -238,6 +246,13 @@
   version "17.3.3"
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-17.3.3.tgz#29859efaeaf9e70ff098011679d1407b68de5997"
   integrity sha512-kj42+TtwvET7MFqxB3pkKyob0VNmspASlv8Y29vSpzzaOHn8J1fDf6H+8opoIC+Gmvo5NqXUDwq7nxI5aQ0mUQ==
+  dependencies:
+    tslib "^2.3.0"
+
+"@angular/service-worker@^17.3.0":
+  version "17.3.7"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-17.3.7.tgz#d0638093cf57047b0366e5c6c36da5981d19c581"
+  integrity sha512-x09Mr0QarAgGusG8Hei6cqBd0tEG9sWaSxp29yvSemAkuG9APewm1WJk0RnuDmjIB7g1Z+FQlZfe+Lo/zyms6A==
   dependencies:
     tslib "^2.3.0"
 
@@ -2397,6 +2412,11 @@
     "@types/express-serve-static-core" "^4.17.33"
     "@types/qs" "*"
     "@types/serve-static" "*"
+
+"@types/google.maps@^3.54.10":
+  version "3.55.8"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.55.8.tgz#5149d6fc388f89643da3ed909c1933e5f8945076"
+  integrity sha512-aSyvlCRXzF9Jtjqq4zmA24sczKZ0QWJnn4zRrkufCoohHulS6LCf4KsF22eAlnHBuVYwEhQoMXIufUS7kXF5uA==
 
 "@types/http-errors@*":
   version "2.0.4"

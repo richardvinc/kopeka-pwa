@@ -11,4 +11,6 @@ export interface IEnvironment {
     messagingSenderId: string;
     measurementId: string;
   };
+  googleMapKey: string;
+  googleMapId: string;
 }

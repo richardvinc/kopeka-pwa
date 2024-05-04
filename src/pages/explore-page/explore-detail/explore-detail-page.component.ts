@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 
 @Component({
-  selector: 'app-timeline-page',
+  selector: 'app-explore-detail-page',
   standalone: true,
-  templateUrl: './timeline-page.component.html',
+  templateUrl: './explore-detail-page.component.html',
 })
-export class TimelinePageComponent {
+export class ExploreDetailPageComponent {
   constructor(private appConfigService: AppConfigService) {
-    this.appConfigService.setPageTitle('Timeline');
+    this.appConfigService.setPageTitle('Report Detail');
   }
 }
