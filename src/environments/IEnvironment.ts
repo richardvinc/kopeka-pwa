@@ -12,4 +12,5 @@ export interface IEnvironment {
     measurementId: string;
   };
   googleMapKey: string;
+  googleMapId: string;
 }

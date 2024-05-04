@@ -1,12 +1,15 @@
+import { environment } from 'src/environments/environment';
+
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 
 @Component({
   selector: 'app-map-page',
   standalone: true,
   templateUrl: './map-page.component.html',
-  imports: [GoogleMap],
+  imports: [GoogleMap, MapMarker, CommonModule, MapAdvancedMarker],
 })
 export class MapPageComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainerRef:
@@ -14,16 +17,42 @@ export class MapPageComponent implements AfterViewInit {
     | undefined = undefined;
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
   center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
-  zoom = 4;
+  zoom = 16;
   height = 800;
   width = 400;
   mapOption: google.maps.MapOptions = {
     disableDefaultUI: true,
     disableDoubleClickZoom: true,
   };
+  markerOption: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false,
+  };
+  userPosition: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
+  parser = new DOMParser();
+  pinHtmlElement = this.parser.parseFromString(
+    `<span class="relative flex h-3 w-3">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+  </span>`,
+    'text/html'
+  ).documentElement;
+  userMarkerOption: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false,
+    content: this.pinHtmlElement,
+  };
+  mapId = environment.googleMapId;
+
+  markers: google.maps.LatLngLiteral[] = [];
 
   constructor(private appConfigService: AppConfigService) {
     this.appConfigService.setPageTitle('Map');
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      this.userPosition = this.center;
+    }, alert);
   }
 
   ngAfterViewInit(): void {
@@ -40,5 +69,12 @@ export class MapPageComponent implements AfterViewInit {
     this.center = event.latLng ? event.latLng.toJSON() : this.center;
   }
 
-  resetMapLocation() {}
+  resetMapLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.center = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    }, alert);
+  }
 }

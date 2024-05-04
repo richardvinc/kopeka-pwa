@@ -14,4 +14,5 @@ export const environment: IEnvironment = {
     measurementId: '',
   },
   googleMapKey: '',
+  googleMapId: '',
 };

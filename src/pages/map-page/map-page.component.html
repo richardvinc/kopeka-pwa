@@ -1,13 +1,24 @@
 <div #mapContainer class="-mx-4 -mt-4 overflow-hidden overscroll-none">
   <google-map
     #googleMap
+    [mapId]="mapId"
     [height]="height"
     [width]="width"
     [center]="center"
     [zoom]="zoom"
     (mapClick)="moveMap($event)"
     [options]="mapOption"
-  />
+  >
+    <map-marker
+      *ngFor="let marker of markers"
+      [position]="marker"
+      [options]="markerOption"
+    ></map-marker>
+    <map-advanced-marker
+      [position]="userPosition"
+      [options]="userMarkerOption"
+    ></map-advanced-marker>
+  </google-map>
   <button
     class="absolute bottom-24 right-4 p-2 bg-white rounded-full shadow-md"
   >
