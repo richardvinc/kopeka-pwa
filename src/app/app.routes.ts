@@ -1,8 +1,18 @@
+import {
+  AuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
 import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from '@app/pages/not-found-page/not-found-page.component';
 import { ContainerComponent } from '@app/shared/components/container/container.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
   {
     path: '',
     component: ContainerComponent,
@@ -55,6 +65,8 @@ export const routes: Routes = [
           ),
       },
     ],
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
     path: 'login',
@@ -62,11 +74,8 @@ export const routes: Routes = [
       import('../pages/login-page/login-page.component').then(
         (m) => m.LoginPageComponent
       ),
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {
     path: '**',
