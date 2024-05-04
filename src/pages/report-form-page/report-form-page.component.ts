@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 
@@ -5,9 +6,38 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
   selector: 'app-report-form-page',
   standalone: true,
   templateUrl: './report-form-page.component.html',
+  imports: [CommonModule],
 })
 export class ReportFormPageComponent {
+  categories: { id: number; name: string; selected: boolean }[] = [
+    { id: 1, name: 'Zebra Cross', selected: false },
+    { id: 2, name: 'Trotoar', selected: false },
+    { id: 3, name: 'Pelican Crossing', selected: false },
+  ];
+  condition: 'GOOD' | 'BAD' | null = null;
+
   constructor(private appConfigService: AppConfigService) {
     this.appConfigService.setPageTitle('Report');
+  }
+
+  toggleCategory(id: number) {
+    this.categories.map((category) => {
+      if (category.id === id) {
+        category.selected = !category.selected;
+      }
+    });
+  }
+
+  toggleCondition(condition: 'GOOD' | 'BAD') {
+    this.condition = condition;
+  }
+
+  submitReport() {
+    console.log('Submit Report');
+    console.log(
+      'Categories:',
+      this.categories.filter((category) => category.selected)
+    );
+    console.log('Condition:', this.condition);
   }
 }

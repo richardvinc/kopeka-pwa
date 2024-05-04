@@ -1,4 +1,4 @@
-<form class="max-w-sm mx-auto">
+<div class="max-w-sm mx-auto">
   <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
     >Picture</label
   >
@@ -21,27 +21,20 @@
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
       >Categories</label
     >
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap gap-1">
+      @for (item of categories; track $index) {
       <span
-        class="flex flex-shrink bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-        >Trotoar</span
+        class="flex flex-shrink text-base font-medium me-2 px-2.5 py-1 rounded-full"
+        [ngClass]="{
+          'bg-blue-200 text-blue-600 border border-solid border-blue-50':
+            item.selected,
+          'bg-white text-blue-300 border border-solid border-blue-400':
+            !item.selected
+        }"
+        (click)="toggleCategory(item.id)"
+        >{{ item.name }}</span
       >
-      <span
-        class="flex flex-shrink bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-        >Zebra Cross</span
-      >
-      <span
-        class="flex flex-shrink bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-        >Pelcian Crossing</span
-      >
-      <span
-        class="flex flex-shrink bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-        >category 1</span
-      >
-      <span
-        class="flex flex-shrink bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-        >Category 2</span
-      >
+      }
     </div>
   </div>
   <div class="mb-5">
@@ -55,7 +48,11 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10 flex-1 bg-green-400 text-green-800 rounded-lg p-2 cursor-pointer"
+        class="w-10 h-10 flex-1 rounded-lg p-2 cursor-pointer text-green-800"
+        [ngClass]="{ 'bg-green-400': condition === 'GOOD',
+          'bg-white border-slate-200': condition !== 'GOOD',
+        }"
+        (click)="toggleCondition('GOOD')"
       >
         <path
           stroke-linecap="round"
@@ -69,7 +66,11 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10 flex-1 bg-white border-solid border-slate-200 text-red-800 rounded-lg p-2 cursor-pointer"
+        class="w-10 h-10 flex-1 text-red-800 rounded-lg p-2 cursor-pointer"
+        [ngClass]="{ 'bg-red-400': condition === 'BAD',
+          'bg-white border-slate-200': condition !== 'BAD',
+        }"
+        (click)="toggleCondition('BAD')"
       >
         <path
           stroke-linecap="round"
@@ -81,9 +82,9 @@
   </div>
 
   <button
-    type="submit"
     class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+    (click)="submitReport()"
   >
     Submit
   </button>
-</form>
+</div>
