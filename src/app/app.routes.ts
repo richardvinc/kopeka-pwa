@@ -9,21 +9,28 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'explore',
         pathMatch: 'full',
       },
       {
-        path: 'home',
+        path: 'explore',
         loadComponent: () =>
-          import('../pages/home-page/home-page.component').then(
-            (m) => m.HomePageComponent
+          import('../pages/explore-page/explore-page.component').then(
+            (m) => m.ExplorePageComponent
           ),
       },
       {
-        path: 'timeline',
+        path: 'explore/detail',
         loadComponent: () =>
-          import('../pages/timeline-page/timeline-page.component').then(
-            (m) => m.TimelinePageComponent
+          import(
+            '../pages/explore-page/explore-detail/explore-detail-page.component'
+          ).then((m) => m.ExploreDetailPageComponent),
+      },
+      {
+        path: 'campaign',
+        loadComponent: () =>
+          import('../pages/campaign-page/campaign-page.component').then(
+            (m) => m.CampaignPageComponent
           ),
       },
       {

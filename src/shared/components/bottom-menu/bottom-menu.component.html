@@ -3,10 +3,10 @@
 >
   <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
     <button
-      data-tooltip-target="tooltip-home"
+      data-tooltip-target="tooltip-explore"
       type="button"
       class="inline-flex flex-col items-center justify-center p-4"
-      routerLink="/home"
+      routerLink="/explore"
       routerLinkActive="border-solid border-t-2 border-blue-500"
     >
       <svg
@@ -21,24 +21,24 @@
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
-          d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
         />
       </svg>
-      <span class="sr-only">Home</span>
+      <span class="sr-only">Explore</span>
     </button>
     <div
-      id="tooltip-home"
+      id="tooltip-explore"
       role="tooltip"
       class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
     >
-      Home
+      Explore
       <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
     <button
-      data-tooltip-target="tooltip-timeline"
+      data-tooltip-target="tooltip-campaign"
       type="button"
       class="inline-flex flex-col items-center justify-center p-4"
-      routerLink="/timeline"
+      routerLink="/campaign"
       routerLinkActive="border-solid border-t-2 border-blue-500"
     >
       <svg
@@ -51,17 +51,19 @@
         routerLinkActive="!stroke-blue-500"
       >
         <path
-          d="M3 3C2.44772 3 2 3.44772 2 4V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V4C22 3.44772 21.5523 3 21 3H3ZM4 19V5H20V19H4ZM14 7H6V9H14V7ZM18 15V17H10V15H18ZM16 11H8V13H16V11Z"
-        ></path>
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"
+        />
       </svg>
-      <span class="sr-only">Timeline</span>
+      <span class="sr-only">Campaign</span>
     </button>
     <div
-      id="tooltip-timeline"
+      id="tooltip-campaign"
       role="tooltip"
       class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
     >
-      Timeline
+      Campaign
       <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
     <button
@@ -113,8 +115,15 @@
         routerLinkActive="!stroke-blue-500"
       >
         <path
-          d="M9.97487 8.97487C11.3417 7.60804 11.3417 5.39196 9.97487 4.02513C8.60804 2.65829 6.39196 2.65829 5.02513 4.02513C3.65829 5.39196 3.65829 7.60804 5.02513 8.97487L7.5 11.4497L9.97487 8.97487ZM7.5 14.2782L3.61091 10.3891C1.46303 8.2412 1.46303 4.7588 3.61091 2.61091C5.7588 0.463029 9.2412 0.463029 11.3891 2.61091C13.537 4.7588 13.537 8.2412 11.3891 10.3891L7.5 14.2782ZM7.5 8C6.67157 8 6 7.32843 6 6.5C6 5.67157 6.67157 5 7.5 5C8.32843 5 9 5.67157 9 6.5C9 7.32843 8.32843 8 7.5 8ZM16.5 20.4497L18.9749 17.9749C20.3417 16.608 20.3417 14.392 18.9749 13.0251C17.608 11.6583 15.392 11.6583 14.0251 13.0251C12.6583 14.392 12.6583 16.608 14.0251 17.9749L16.5 20.4497ZM20.3891 19.3891L16.5 23.2782L12.6109 19.3891C10.463 17.2412 10.463 13.7588 12.6109 11.6109C14.7588 9.46303 18.2412 9.46303 20.3891 11.6109C22.537 13.7588 22.537 17.2412 20.3891 19.3891ZM16.5 17C15.6716 17 15 16.3284 15 15.5C15 14.6716 15.6716 14 16.5 14C17.3284 14 18 14.6716 18 15.5C18 16.3284 17.3284 17 16.5 17Z"
-        ></path>
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+        />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+        />
       </svg>
       <span class="sr-only">Maps</span>
     </button>
