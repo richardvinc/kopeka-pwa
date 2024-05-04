@@ -13,4 +13,5 @@ export const environment: IEnvironment = {
     messagingSenderId: '',
     measurementId: '',
   },
+  googleMapKey: '',
 };
