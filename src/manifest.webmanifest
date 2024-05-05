@@ -1,6 +1,6 @@
 {
-  "name": "kopeka-pwa",
-  "short_name": "kopeka-pwa",
+  "name": "kopeka-dev",
+  "short_name": "kopeka-dev",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

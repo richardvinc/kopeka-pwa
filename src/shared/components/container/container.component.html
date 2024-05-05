@@ -1,6 +1,8 @@
-<app-header />
-<!-- add padding for header and bottom navigation -->
-<div class="pt-20 pb-20 px-4 w-full bg-gray-50">
-  <router-outlet />
+<div class="relative top-0 left-0 h-screen w-full">
+  <app-header />
+  <!-- add padding for header and bottom navigation -->
+  <div class="block px-4 pt-20 w-full h-full bg-gray-50">
+    <router-outlet />
+  </div>
+  <app-bottom-menu class="block fixed bottom-0 left-0 w-full h-16" />
 </div>
-<app-bottom-menu />
