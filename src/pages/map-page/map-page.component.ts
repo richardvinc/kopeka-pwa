@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 
@@ -12,6 +12,8 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
   imports: [GoogleMap, MapMarker, CommonModule, MapAdvancedMarker],
 })
 export class MapPageComponent implements AfterViewInit {
+  @ViewChild('mapContainer') mapContainerRef: ElementRef | undefined =
+    undefined;
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
   center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
   zoom = 16;
@@ -53,8 +55,8 @@ export class MapPageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.height = window.screen.height || 800;
-    this.width = window.screen.width || 400;
+    this.height = window.innerHeight || 800;
+    this.width = this.mapContainerRef?.nativeElement.offsetWidth || 400;
     if (this.mapRef) {
       this.mapRef.height = this.height;
       this.mapRef.width = this.width;
