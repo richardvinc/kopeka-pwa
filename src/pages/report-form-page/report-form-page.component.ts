@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
+import { ReportService } from '@app/shared/services/report/report.service';
 
 @Component({
   selector: 'app-report-form-page',
@@ -15,9 +17,20 @@ export class ReportFormPageComponent {
     { id: 3, name: 'Pelican Crossing', selected: false },
   ];
   condition: 'GOOD' | 'BAD' | null = null;
+  imageData: string | undefined = undefined;
 
-  constructor(private appConfigService: AppConfigService) {
+  constructor(
+    private appConfigService: AppConfigService,
+    private reportService: ReportService,
+    private router: Router
+  ) {
     this.appConfigService.setPageTitle('Report');
+    this.reportService.$imageData().subscribe((data) => {
+      if (!data) {
+        this.router.navigate(['/explore']);
+      }
+      this.imageData = data;
+    });
   }
 
   toggleCategory(id: number) {

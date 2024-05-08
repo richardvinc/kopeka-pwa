@@ -37,6 +37,13 @@ export const routes: Routes = [
           ).then((m) => m.ExploreDetailPageComponent),
       },
       {
+        path: 'permission',
+        loadComponent: () =>
+          import('../pages/permission-page/permission-page.component').then(
+            (m) => m.PermissionPageComponent
+          ),
+      },
+      {
         path: 'campaign',
         loadComponent: () =>
           import('../pages/campaign-page/campaign-page.component').then(
@@ -69,12 +76,20 @@ export const routes: Routes = [
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
+    path: 'camera',
+    loadComponent: () =>
+      import('../pages/camera-page/camera-page.component').then(
+        (m) => m.CameraPageComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('../pages/login-page/login-page.component').then(
         (m) => m.LoginPageComponent
       ),
-    canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {
