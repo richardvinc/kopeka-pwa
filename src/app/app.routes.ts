@@ -90,6 +90,7 @@ export const routes: Routes = [
       import('../pages/login-page/login-page.component').then(
         (m) => m.LoginPageComponent
       ),
+    canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {

@@ -32,11 +32,14 @@
     </svg>
   </button>
 </div>
-<div #cameraContainer class="bg-slate-300 max-w-screen-sm h-screen">
+<div #cameraContainer class="bg-black max-w-screen-sm h-screen content-center">
+  <p class="text-center text-white pb-4">
+    Laporkan kondisi trotoar di sekitarmu!
+  </p>
   <video
     id="vid"
     #video
-    class="w-full h-full"
+    class="w-full"
     [srcObject]="srcObject"
     [hidden]="videoHidden"
     autoplay
@@ -48,12 +51,15 @@
   <img
     #photo
     [hidden]="imgHidden"
-    class="w-full max-w-screen-sm h-screen object-center object-contain"
+    class="w-full max-w-screen-sm object-center object-contain"
     [src]="src"
     alt="The screen capture will appear in this box."
   />
 </div>
-<div class="absolute w-full max-w-screen-sm h-20 bottom-0 text-center z-10">
+<div
+  class="absolute w-full max-w-screen-sm h-20 bottom-0 text-center z-10"
+  [hidden]="!isCameraReady"
+>
   <button (click)="takePhoto()" [hidden]="allowRetake">
     <svg
       xmlns="http://www.w3.org/2000/svg"

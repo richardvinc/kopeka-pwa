@@ -19,37 +19,43 @@ export class CameraPageComponent implements OnInit {
     undefined;
   videoHidden: boolean = false;
   imgHidden: boolean = true;
+  isCameraReady: boolean = false;
   allowRetake: boolean = false;
   srcObject: MediaStream | undefined = undefined;
   src: string | undefined = undefined;
 
   videoWidth = 0;
-  videoHeight = 0;
 
   constructor(private router: Router, private reportService: ReportService) {}
 
   async ngOnInit() {
-    this.videoHeight = window.innerHeight;
     this.videoWidth =
       this.cameraContainer?.nativeElement.offsetWidth || window.innerWidth;
 
     if (this.video) {
-      this.video.nativeElement.height = this.videoHeight;
+      this.video.nativeElement.height = this.videoWidth;
       this.video.nativeElement.width = this.videoWidth;
     }
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        height: this.videoHeight,
+        height: this.videoWidth,
         width: this.videoWidth,
+        facingMode: {
+          ideal: 'environment',
+        },
+        aspectRatio: {
+          exact: 1,
+        },
       },
       audio: false,
     });
     this.srcObject = stream;
+    this.isCameraReady = true;
   }
 
   takePhoto() {
     if (this.canvas) {
-      this.canvas.nativeElement.height = this.videoHeight;
+      this.canvas.nativeElement.height = this.videoWidth;
       this.canvas.nativeElement.width = this.videoWidth;
     }
     const context = this.canvas?.nativeElement.getContext('2d');
@@ -59,7 +65,7 @@ export class CameraPageComponent implements OnInit {
         0,
         0,
         this.videoWidth,
-        this.videoHeight
+        this.videoWidth
       );
     }
 
@@ -80,14 +86,7 @@ export class CameraPageComponent implements OnInit {
   }
 
   navigateAway() {
-    if (this.video) {
-      // stop video
-      this.video.nativeElement.srcObject = null;
-      // stop stream
-      this.srcObject?.getTracks().forEach((track) => {
-        track.stop();
-      });
-    }
+    this.stopCamera();
 
     // if there is a history, go back
     if (window.history.length > 1) {
@@ -97,8 +96,20 @@ export class CameraPageComponent implements OnInit {
     }
   }
 
+  stopCamera() {
+    if (this.video) {
+      // stop video
+      this.video.nativeElement.srcObject = null;
+      // stop stream
+      this.srcObject?.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
+  }
+
   useImage() {
     this.reportService.setImageData(this.src);
+    this.stopCamera();
     this.router.navigate(['/report']);
   }
 }
