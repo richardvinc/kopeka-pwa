@@ -24,7 +24,7 @@ export class ReportFormPageComponent {
     private reportService: ReportService,
     private router: Router
   ) {
-    this.appConfigService.setPageTitle('Report');
+    this.appConfigService.setPageTitle('Laporan');
     this.reportService.$imageData().subscribe((data) => {
       if (!data) {
         this.router.navigate(['/explore']);

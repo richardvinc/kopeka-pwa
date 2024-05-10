@@ -16,7 +16,7 @@ export class ProfilePageComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    this.appConfigService.setPageTitle('Profile');
+    this.appConfigService.setPageTitle('Profil');
     this.user = this.authService.user;
   }
 

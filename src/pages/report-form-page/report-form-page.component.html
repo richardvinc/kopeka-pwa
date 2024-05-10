@@ -1,6 +1,6 @@
 <div class="w-full">
   <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
-    >Picture</label
+    >Foto</label
   >
   <div class="relative">
     <img
@@ -12,13 +12,13 @@
       class="absolute flex w-full h-64 top-0 left-0 items-center justify-center z-10"
     >
       <button class="px-4 py-2 rounded-lg bg-black opacity-60 text-white">
-        retake
+        ambil ulang
       </button>
     </div>
   </div>
   <div class="rounded overflow-hidden shadow-lg mb-4 relative">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
-      >Map</label
+      >Peta</label
     >
     <img
       class="w-full h-40 object-cover object-center"
@@ -28,7 +28,7 @@
   </div>
   <div class="mb-4">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
-      >Categories</label
+      >Kategori</label
     >
     <div class="flex flex-wrap gap-1">
       @for (item of categories; track $index) {
@@ -48,7 +48,7 @@
   </div>
   <div class="mb-5">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
-      >Condition</label
+      >Kondisi</label
     >
     <div class="flex gap-4">
       <svg
@@ -94,6 +94,6 @@
     class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
     (click)="submitReport()"
   >
-    Submit
+    Kirim
   </button>
 </div>

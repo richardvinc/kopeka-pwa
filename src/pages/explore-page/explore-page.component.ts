@@ -10,6 +10,6 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
 })
 export class ExplorePageComponent {
   constructor(private appConfigService: AppConfigService) {
-    this.appConfigService.setPageTitle('Explore');
+    this.appConfigService.setPageTitle('Utama');
   }
 }

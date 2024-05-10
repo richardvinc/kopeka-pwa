@@ -10,6 +10,6 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
 })
 export class CampaignPageComponent {
   constructor(private appConfigService: AppConfigService) {
-    this.appConfigService.setPageTitle(`Campaign`);
+    this.appConfigService.setPageTitle(`Kampanye`);
   }
 }

@@ -44,7 +44,7 @@ export class MapPageComponent implements AfterViewInit {
   markers: google.maps.LatLngLiteral[] = [];
 
   constructor(private appConfigService: AppConfigService) {
-    this.appConfigService.setPageTitle('Map');
+    this.appConfigService.setPageTitle('Peta');
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: position.coords.latitude,
