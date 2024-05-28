@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReportService } from '@app/shared/services/report/report.service';
+import { ReportFormService } from '@app/shared/services/report/report-form.service';
 
 @Component({
   selector: 'app-camera-page',
@@ -26,7 +26,10 @@ export class CameraPageComponent implements OnInit {
 
   videoWidth = 0;
 
-  constructor(private router: Router, private reportService: ReportService) {}
+  constructor(
+    private router: Router,
+    private reportFormService: ReportFormService
+  ) {}
 
   async ngOnInit() {
     this.videoWidth =
@@ -108,7 +111,7 @@ export class CameraPageComponent implements OnInit {
   }
 
   useImage() {
-    this.reportService.setImageData(this.src);
+    this.reportFormService.setImageData(this.src);
     this.stopCamera();
     this.router.navigate(['/report']);
   }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ReportService {
+export class ReportFormService {
   private _imageData = new BehaviorSubject<string | undefined>(undefined);
   private _locationData = new BehaviorSubject<string | undefined>(undefined);
 

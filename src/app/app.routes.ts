@@ -6,6 +6,7 @@ import {
 import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from '@app/pages/not-found-page/not-found-page.component';
 import { ContainerComponent } from '@app/shared/components/container/container.component';
+import { IsUserRegisteredGuard } from '@app/shared/guards/is-user-registered.guard';
 
 export const routes: Routes = [
   {
@@ -72,7 +73,7 @@ export const routes: Routes = [
           ),
       },
     ],
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsUserRegisteredGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
@@ -80,6 +81,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('../pages/camera-page/camera-page.component').then(
         (m) => m.CameraPageComponent
+      ),
+    canActivate: [AuthGuard, IsUserRegisteredGuard],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
+  },
+  {
+    path: 'create-user',
+    loadComponent: () =>
+      import('../pages/create-user-page/create-user-page.component').then(
+        (m) => m.CreateUserPageComponent
       ),
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
@@ -91,7 +101,7 @@ export const routes: Routes = [
         (m) => m.LoginPageComponent
       ),
     canActivate: [AuthGuard],
-    data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
+    data: { authGuardPipe: () => redirectLoggedInTo(['create-user']) },
   },
   {
     path: '**',

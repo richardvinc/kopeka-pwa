@@ -1,6 +1,7 @@
 export interface IEnvironment {
   production: boolean;
   appName: string;
+  baseUrl: string;
   env: 'local' | 'dev' | 'qa' | 'prod';
   firebase: {
     projectId: string;

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
-import { ReportService } from '@app/shared/services/report/report.service';
+import { ReportFormService } from '@app/shared/services/report/report-form.service';
 
 @Component({
   selector: 'app-report-form-page',
@@ -21,11 +21,11 @@ export class ReportFormPageComponent {
 
   constructor(
     private appConfigService: AppConfigService,
-    private reportService: ReportService,
+    private reportFormService: ReportFormService,
     private router: Router
   ) {
     this.appConfigService.setPageTitle('Laporan');
-    this.reportService.$imageData().subscribe((data) => {
+    this.reportFormService.$imageData().subscribe((data) => {
       if (!data) {
         this.router.navigate(['/explore']);
       }

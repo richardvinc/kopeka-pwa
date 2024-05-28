@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   idToken,
   signInWithPopup,
-  User,
+  User as FirebaseUser,
   user,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -42,7 +42,7 @@ export class AuthService {
     });
   }
 
-  get user(): User | null {
+  get user(): FirebaseUser | null {
     return this.auth.currentUser;
   }
 

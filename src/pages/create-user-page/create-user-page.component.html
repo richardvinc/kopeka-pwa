@@ -1,0 +1,82 @@
+<div
+  class="max-w-sm mx-auto h-screen max-h-screen overflow-hidden p-4 flex flex-col justify-end"
+>
+  @if(isLoading) {
+  <div class="flex h-screen justify-center items-center">
+    <div
+      class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"
+    ></div>
+  </div>
+  } @else {
+  <!-- illustration -->
+  <app-dog-walking-illustration class="mb-8" />
+  <form class="mb-10" [formGroup]="createUserForm" (ngSubmit)="submitForm()">
+    <h1 class="text-lg text-slate-600 font-bold text-left mb-4">
+      <div class="mb-2 text-4xl text-slate-900">Ayo</div>
+      mulai perjalanan dengan memilih <em>username</em>-mu:
+    </h1>
+    <input
+      type="text"
+      formControlName="username"
+      class="w-full border-2 rounded-sm border-gray-900 p-2"
+    />
+    <!-- error messages -->
+    <div class="block text-left text-sm mt-1 text-red-400">
+      <div
+        *ngIf="
+          createUserForm.get('username')?.hasError('required') &&
+          (createUserForm.touched || createUserForm.dirty)
+        "
+      >
+        Username tidak boleh kosong
+      </div>
+      <div
+        *ngIf="
+          createUserForm.get('username')?.hasError('usernameRegexValidator') &&
+          (createUserForm.touched || createUserForm.dirty)
+        "
+      >
+        Username harus 5-20 karakter dan hanya terdiri dari karakter a-z, A-Z,
+        angka, tanda hubung (_), dan titik (.)
+      </div>
+      @if(createUserForm.get('username')?.hasError('uniqueUsername') &&
+      (createUserForm.touched || createUserForm.dirty)) {
+      <div>
+        Username
+        {{ createUserForm.get("username")?.getError("uniqueUsername") ?? "" }}
+        sudah dipakai
+      </div>
+      } @else if (createUserForm.get("username")?.valid) {
+      <div class="text-green-600">
+        Username {{ createUserForm.get("username")?.value ?? "" }} tersedia
+      </div>
+      }
+    </div>
+    <div class="block text-left text-base mt-4 mb-2">
+      atau pilih dari beberapa rekomendasi kami:
+    </div>
+    <div class="flex flex-wrap gap-2 mb-6">
+      @for(username of recommendedUsernames; track username.value) {
+      <span
+        class="bg-white text-blue-400 border border-solid border-blue-400 text-base px-2.5 py-1 rounded-full"
+        [ngClass]="{
+          'bg-blue-200 text-blue-600 border border-solid border-blue-50':
+            username.selected,
+          'bg-white text-blue-300 border border-solid border-blue-400':
+            !username.selected
+        }"
+        (click)="selectUsername(username.value)"
+        >{{ username.value }}</span
+      >
+      }
+    </div>
+    <button
+      type="submit"
+      [disabled]="!createUserForm.valid"
+      class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center disabled:opacity-40"
+    >
+      Kirim
+    </button>
+  </form>
+  }
+</div>
