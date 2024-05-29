@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +21,10 @@ export class UserService {
 
   getSelf(): Observable<User | null> {
     return this.http.get<User>(`${this.baseUrl}/users/self`);
+  }
+
+  isHavingUsername(): Observable<boolean> {
+    return this.getSelf().pipe(map((user) => !!user?.username));
   }
 
   getUsernameRecommendations(

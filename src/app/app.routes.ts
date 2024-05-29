@@ -6,7 +6,7 @@ import {
 import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from '@app/pages/not-found-page/not-found-page.component';
 import { ContainerComponent } from '@app/shared/components/container/container.component';
-import { IsUserRegisteredGuard } from '@app/shared/guards/is-user-registered.guard';
+import { IsHavingAUsernameGuard } from '@app/shared/guards/is-having-a-username.guard';
 
 export const routes: Routes = [
   {
@@ -73,7 +73,7 @@ export const routes: Routes = [
           ),
       },
     ],
-    canActivate: [AuthGuard, IsUserRegisteredGuard],
+    canActivate: [AuthGuard, IsHavingAUsernameGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
@@ -82,7 +82,7 @@ export const routes: Routes = [
       import('../pages/camera-page/camera-page.component').then(
         (m) => m.CameraPageComponent
       ),
-    canActivate: [AuthGuard, IsUserRegisteredGuard],
+    canActivate: [AuthGuard, IsHavingAUsernameGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {

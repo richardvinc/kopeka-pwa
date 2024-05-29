@@ -47,8 +47,8 @@ export class CreateUserPageComponent implements OnInit {
     private router: Router,
     private uniqueUsernameValidator: UniqueUsernameValidator
   ) {
-    this.userService.getSelf().subscribe((user) => {
-      if (user) {
+    this.userService.isHavingUsername().subscribe((isHavingUsername) => {
+      if (isHavingUsername) {
         this.router.navigate(['/explore']);
       } else {
         this.isLoading = false;
