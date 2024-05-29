@@ -2,7 +2,7 @@ import { IEnvironment } from './IEnvironment';
 
 export const environment: IEnvironment = {
   production: true,
-  appName: 'Kopeka',
+  appName: 'Kopeka-prod',
   baseUrl: 'https://api.kopeka.id',
   env: 'prod',
   firebase: {
