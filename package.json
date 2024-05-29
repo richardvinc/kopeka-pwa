@@ -8,6 +8,9 @@
     "build": "ng build --configuration development",
     "build:dev": "ng build --configuration development",
     "build:prod": "ng build --configuration production",
+    "deploy": "firebase deploy --only hosting:development",
+    "deploy:dev": "firebase deploy --only hosting:development",
+    "deploy:prod": "firebase deploy --only hosting:production",
     "watch": "ng build --watch --configuration local",
     "watch:dev": "ng build --watch --configuration development",
     "test": "ng test"

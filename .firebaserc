@@ -1,14 +1,22 @@
 {
+  "projects": {
+    "default": "kopeka-dev-52b32"
+  },
   "targets": {
     "kopeka-dev-52b32": {
       "hosting": {
         "kopeka-pwa": [
           "kopeka-dev-52b32"
+        ],
+        "development": [
+          "kopeka-dev-52b32"
+        ],
+        "production": [
+          "kopeka-prod"
         ]
       }
     }
   },
-  "projects": {
-    "default": "kopeka-dev-52b32"
-  }
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
