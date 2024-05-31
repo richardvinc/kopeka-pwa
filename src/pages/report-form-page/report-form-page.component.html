@@ -20,18 +20,29 @@
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
       >Peta</label
     >
-    <img
-      class="w-full h-40 object-cover object-center"
-      src="./assets/map.png"
-      alt=""
-    />
+    <google-map
+      class="w-full rounded-md"
+      #googleMap
+      [mapId]="mapId"
+      [height]="160"
+      [width]="null"
+      [center]="center"
+      [zoom]="zoom"
+      [options]="mapOption"
+      (centerChanged)="onCenterChanged()"
+    >
+      <map-marker
+        [position]="userPosition"
+        [options]="markerOption"
+      ></map-marker>
+    </google-map>
   </div>
   <div class="mb-4">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
       >Kategori</label
     >
     <div class="flex flex-wrap gap-1">
-      @for (item of categories; track $index) {
+      @for (item of categories; track item.id) {
       <span
         class="flex flex-shrink text-base font-medium me-2 px-2.5 py-1 rounded-full"
         [ngClass]="{
@@ -40,7 +51,7 @@
           'bg-white text-blue-300 border border-solid border-blue-400':
             !item.selected
         }"
-        (click)="toggleCategory(item.id)"
+        (click)="selectCategory(item.id)"
         >{{ item.name }}</span
       >
       }

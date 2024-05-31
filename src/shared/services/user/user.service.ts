@@ -3,9 +3,10 @@ import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BaseResponse } from '@app/shared/interfaces/base-response.interface';
 import { User } from '@app/shared/interfaces/user.interface';
 
-import { CreateUserDTO } from './dto/create-user.dto';
+import { CreateUsernameRequestDTO } from './dto/create-username.dto';
 import {
   GetUsernameRecommendationRequestDTO,
   GetUsernameRecommendationResponseDTO,
@@ -20,20 +21,30 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getSelf(): Observable<User | null> {
-    return this.http.get<User>(`${this.baseUrl}/users/self`);
+    return this.http.get<BaseResponse<User>>(`${this.baseUrl}/users/self`).pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
   }
 
   isHavingUsername(): Observable<boolean> {
-    return this.getSelf().pipe(map((user) => !!user?.username));
+    return this.getSelf().pipe(
+      map((user) => {
+        return !!user?.username;
+      })
+    );
   }
 
   getUsernameRecommendations(
     alreadyRecommendedUsernames?: GetUsernameRecommendationRequestDTO
-  ): Observable<GetUsernameRecommendationResponseDTO> {
-    return this.http.post<GetUsernameRecommendationResponseDTO>(
-      `${this.baseUrl}/users/username/recommendations`,
-      alreadyRecommendedUsernames
-    );
+  ): Observable<string[]> {
+    return this.http
+      .post<GetUsernameRecommendationResponseDTO>(
+        `${this.baseUrl}/users/username/recommendations`,
+        alreadyRecommendedUsernames
+      )
+      .pipe(map((res) => res.data));
   }
 
   checkUsernameAvailability(username: string): Observable<boolean> {
@@ -42,7 +53,9 @@ export class UserService {
     );
   }
 
-  createUser(user: CreateUserDTO): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+  createUsername(user: CreateUsernameRequestDTO): Observable<User> {
+    return this.http
+      .post<BaseResponse<User>>(`${this.baseUrl}/users/username`, user)
+      .pipe(map((res) => res.data));
   }
 }

@@ -49,8 +49,10 @@ export class CreateUserPageComponent implements OnInit {
   ) {
     this.userService.isHavingUsername().subscribe((isHavingUsername) => {
       if (isHavingUsername) {
+        console.log('User already has a username');
         this.router.navigate(['/explore']);
       } else {
+        console.log("User doesn't have a username yet");
         this.isLoading = false;
       }
     });
@@ -60,9 +62,10 @@ export class CreateUserPageComponent implements OnInit {
     this.userService
       .getUsernameRecommendations()
       .subscribe((recommendedUsernames) => {
-        this.recommendedUsernames = recommendedUsernames.data.map(
-          (username) => ({ value: username, selected: false })
-        );
+        this.recommendedUsernames = recommendedUsernames.map((username) => ({
+          value: username,
+          selected: false,
+        }));
       });
   }
 
@@ -74,6 +77,13 @@ export class CreateUserPageComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.createUserForm.value);
+    this.userService
+      .createUsername({
+        username: this.createUserForm.value.username,
+        profile_picture_url: 'https://avatar.iran.liara.run/public',
+      })
+      .subscribe((user) => {
+        this.router.navigate(['/explore']);
+      });
   }
 }
