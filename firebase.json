@@ -2,18 +2,7 @@
   "hosting": [
     {
       "target": "development",
-      "public": "dist/kopeka-pwa/browser",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "staging",
-      "public": "dist/kopeka-pwa/browser",
+      "public": "dist/kopeka-pwa-dev/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
@@ -24,7 +13,7 @@
     },
     {
       "target": "production",
-      "public": "dist/kopeka-pwa/browser",
+      "public": "dist/kopeka-pwa-prod/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

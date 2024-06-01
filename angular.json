@@ -36,6 +36,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/kopeka-pwa-prod",
               "budgets": [
                 {
                   "type": "initial",
@@ -58,6 +59,7 @@
               ]
             },
             "development": {
+              "outputPath": "dist/kopeka-pwa-dev",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
@@ -69,6 +71,7 @@
               ]
             },
             "local": {
+              "outputPath": "dist/kopeka-pwa-local",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
