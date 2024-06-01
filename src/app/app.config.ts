@@ -9,6 +9,8 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { jwtInterceptor } from '@app/shared/interceptors/jwt.interceptor';
+import { CheckForUpdateService } from '@app/shared/services/service-worker/check-for-update.service';
+import { PromptUpdateService } from '@app/shared/services/service-worker/prompt-update.service';
 
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
@@ -25,5 +27,7 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideHttpClient(withInterceptors([jwtInterceptor])),
+    CheckForUpdateService,
+    PromptUpdateService,
   ],
 };

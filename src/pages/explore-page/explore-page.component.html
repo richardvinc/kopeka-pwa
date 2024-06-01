@@ -1,9 +1,10 @@
 <div
-  class="list overflow-hidden"
+  class="list"
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
-  (scrolled)="loadMore()"
+  [infiniteScrollDisabled]="isGettingData"
+  (scrolled)="onScrolled()"
 >
   @for (report of reports; track $index) {
   <app-report-card-item-list [report]="report"></app-report-card-item-list>

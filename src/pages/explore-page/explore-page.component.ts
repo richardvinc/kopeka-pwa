@@ -17,22 +17,48 @@ import { ReportCardItemListComponenet } from './report-card-item-list/report-car
 export class ExplorePageComponent {
   reports: Report[] = [];
   nextToken: string | null = null;
+  isGettingData = false;
+  isAllDataLoaded = false;
 
   constructor(
     private appConfigService: AppConfigService,
     private reportService: ReportService
   ) {
     this.appConfigService.setPageTitle('Utama');
-    this.loadMore();
+    this.getReportData();
   }
 
-  loadMore() {
-    console.log('load more!');
+  onScrolled() {
+    console.log('scrolled!');
+    if (this.isGettingData) {
+      return;
+    }
+    this.isGettingData = true;
+    this.getReportData();
+  }
+
+  getReportData() {
+    if (this.isAllDataLoaded) {
+      return;
+    }
     this.reportService
       .getLatestReport({ next_token: this.nextToken ?? undefined })
-      .subscribe((res) => {
-        this.reports = this.reports.concat(res.reports);
-        this.nextToken = res.nextToken;
+      .subscribe({
+        next: (res) => {
+          if (res.reports.length === 0 && !res.nextToken) {
+            console.log('All data loaded');
+            this.isAllDataLoaded = true;
+            return;
+          }
+          this.reports = this.reports.concat(res.reports);
+          this.nextToken = res.nextToken;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.isGettingData = false;
+        },
       });
   }
 }
