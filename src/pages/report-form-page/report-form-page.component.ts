@@ -32,6 +32,7 @@ export class ReportFormPageComponent {
     { id: 'ZEBRA_CROSS', name: 'Zebra Cross', selected: false },
     { id: 'SIDEWALK', name: 'Trotoar', selected: false },
     { id: 'PELICAN_CROSSING', name: 'Pelican Crossing', selected: false },
+    { id: 'PEDESTRIAN_BRIDGE', name: 'JPO', selected: false },
     { id: 'OTHER', name: 'Lainnya', selected: false },
   ];
   condition: 'GOOD' | 'BAD' | null = null;

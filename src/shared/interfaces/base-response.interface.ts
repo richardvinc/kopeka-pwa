@@ -4,5 +4,5 @@ export interface BaseResponse<T> {
 
 export interface BaseResponsePagination<T> {
   data: T;
-  nextToken?: string;
+  nextToken: string | null;
 }
