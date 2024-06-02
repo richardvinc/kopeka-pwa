@@ -16,7 +16,7 @@ import {
   providedIn: 'root',
 })
 export class UserService {
-  baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 

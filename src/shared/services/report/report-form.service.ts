@@ -24,7 +24,7 @@ interface SasUrlResponseDTO {
   providedIn: 'root',
 })
 export class ReportFormService {
-  baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl;
   private _imageData = new BehaviorSubject<string | undefined>(undefined);
   private _locationData = new BehaviorSubject<GPSLocation | undefined>({
     latitude: 0,

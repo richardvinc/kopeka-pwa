@@ -31,7 +31,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'explore/detail',
+        path: 'explore/detail/:reportId',
         loadComponent: () =>
           import(
             '../pages/explore-page/explore-detail/explore-detail-page.component'

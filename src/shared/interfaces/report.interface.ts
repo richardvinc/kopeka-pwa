@@ -1,6 +1,6 @@
 export interface Report {
   id: string;
-  location: { lat: number; lon: number };
+  location: { lat: number; lon: number; geo_hash: string };
   image_url: string;
   total_reaction: number;
   is_reacted: boolean;

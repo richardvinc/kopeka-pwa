@@ -1,7 +1,8 @@
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { catchError } from 'rxjs';
 
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Report } from '@app/shared/interfaces/report.interface';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import { ReportService } from '@app/shared/services/report/report.service';
@@ -22,10 +23,15 @@ export class ExplorePageComponent {
 
   constructor(
     private appConfigService: AppConfigService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private router: Router
   ) {
     this.appConfigService.setPageTitle('Utama');
     this.getReportData();
+  }
+
+  goToDetail(reportId: string) {
+    this.router.navigate(['/explore/detail', reportId]);
   }
 
   onScrolled() {
@@ -42,7 +48,13 @@ export class ExplorePageComponent {
       return;
     }
     this.reportService
-      .getLatestReport({ next_token: this.nextToken ?? undefined })
+      .getLatestReports({ next_token: this.nextToken ?? undefined })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          throw error;
+        })
+      )
       .subscribe({
         next: (res) => {
           if (res.reports.length === 0 && !res.nextToken) {
@@ -52,11 +64,10 @@ export class ExplorePageComponent {
           }
           this.reports = this.reports.concat(res.reports);
           this.nextToken = res.nextToken;
+          this.isGettingData = false;
         },
         error: (error) => {
           console.error(error);
-        },
-        complete: () => {
           this.isGettingData = false;
         },
       });

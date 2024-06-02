@@ -7,6 +7,9 @@
   (scrolled)="onScrolled()"
 >
   @for (report of reports; track $index) {
-  <app-report-card-item-list [report]="report"></app-report-card-item-list>
+  <app-report-card-item-list
+    [report]="report"
+    (clicked)="goToDetail($event)"
+  ></app-report-card-item-list>
   }
 </div>

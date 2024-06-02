@@ -1,34 +1,38 @@
+@if(!isLoading && report) {
 <!-- Latest Image -->
 <div class="rounded overflow-hidden shadow-lg mb-4 relative">
   <img
     class="w-full h-64"
-    src="https://picsum.photos/seed/picsum/200/300"
-    alt=""
+    [src]="report.image_url"
+    alt="image of reported pedestrian facility"
   />
 </div>
 
 <!-- Latest report information -->
-<div
-  class="rounded overflow-hidden shadow-lg mb-4 relative px-6 pt-4 pb-2"
-  routerLink="/explore/detail"
->
+<div class="rounded overflow-hidden shadow-lg mb-4 relative px-6 pt-4 pb-2">
   <div class="">
-    <p class="text-gray-400 text-sm">5 Mei 2024 15:35</p>
+    <p class="text-gray-400 text-sm">
+      {{ report.created_at | date : "mediumDate" }}
+    </p>
 
     <p class="text-gray-700 text-lg">
-      #Trotoar
+      #{{ report.category | lowercase }}
       <span
-        class="bg-green-200 text-green-700 px-2 py-1 rounded-full text-xs font-bold"
-        >Kondisi baik</span
+        class="px-2 py-1 rounded-full text-xs font-bold"
+        [ngClass]="{
+          'bg-green-200 text-green-800': report.condition === 'GOOD',
+          'bg-red-200 text-red-800': report.condition === 'BAD'
+        }"
+        >Kondisi {{ report.condition === "GOOD" ? "baik" : "buruk" }}</span
       >
     </p>
     <p class="text-gray-500 text-base mt-1 mb-4">
-      Dilaporkan oleh: Popo Fernandes
+      Dilaporkan oleh: {{ report.reported_by.username }}
     </p>
   </div>
   <div class="flex">
     <span class="flex-grow text-gray-400 text-sm mt-1"
-      >9 orang memberi reaksi</span
+      >{{ report.total_reaction }} orang memberi reaksi</span
     >
     <span class="flex-shrink inline-block mr-2 mb-2"
       ><svg
@@ -38,6 +42,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="w-8 h-8"
+        [ngClass]="{ 'fill-red-400': report.is_reacted }"
       >
         <path
           stroke-linecap="round"
@@ -56,11 +61,21 @@
 
 <!-- Map -->
 <div class="rounded overflow-hidden shadow-lg mb-4 relative">
-  <img
-    class="w-full h-40 object-cover object-center"
-    src="./assets/map.png"
-    alt=""
-  />
+  <google-map
+    class="w-full"
+    #googleMap
+    [mapId]="mapId"
+    [height]="160"
+    [width]="null"
+    [center]="center"
+    [zoom]="zoom"
+    [options]="mapOption"
+  >
+    <map-marker
+      [position]="reportPosition"
+      [options]="markerOption"
+    ></map-marker>
+  </google-map>
 </div>
 
 <!-- Reports near the area -->
@@ -74,27 +89,30 @@
   </div>
   <div class="flow-root">
     <ul role="list" class="divide-y divide-gray-200">
-      @for(item of [1,2,3,4,5]; track item) {
-      <li class="py-3">
+      @for(nearbyReport of nearbyReports; track nearbyReport.id) {
+      <li class="py-3" (click)="goToReportDetail(nearbyReport.id)">
         <div class="flex items-center content-center">
           <div class="flex-shrink-0">
             <img
               class="w-8 h-8 rounded-sm"
-              src="https://picsum.photos/seed/{{ item }}/200/200"
+              [src]="nearbyReport.image_url"
               alt=""
             />
           </div>
           <div class="flex-1 min-w-0 ms-4">
-            <p class="text-xs text-gray-400 truncate">{{ item }} hari lalu</p>
+            <p class="text-xs text-gray-400 truncate">
+              {{ nearbyReport.created_at | date : "mediumDate" }}
+            </p>
             <p class="text-sm font-medium text-gray-900 truncate">
-              #Trotoar dalam kondisi baik
+              #{{ nearbyReport.category | lowercase }} dalam kondisi
+              {{ nearbyReport.condition === "GOOD" ? "baik" : "buruk" }}
             </p>
             <!-- <p class="text-sm font-medium text-gray-900 truncate">Good</p> -->
           </div>
           <div
             class="inline-flex items-center text-base font-semibold text-gray-900"
           >
-            <span>9</span>
+            <span>{{ nearbyReport.total_reaction }}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -102,6 +120,7 @@
               stroke-width="1.5"
               stroke="currentColor"
               class="w-6 h-6"
+              [ngClass]="{ 'fill-red-400': nearbyReport.is_reacted }"
             >
               <path
                 stroke-linecap="round"
@@ -121,3 +140,7 @@
     </ul>
   </div>
 </div>
+} @else {
+<!-- Loading -->
+<div>mengambil data...</div>
+}
