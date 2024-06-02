@@ -12,11 +12,11 @@
 <div class="rounded overflow-hidden shadow-lg mb-4 relative px-6 pt-4 pb-2">
   <div class="">
     <p class="text-gray-400 text-sm">
-      {{ report.created_at | date : "mediumDate" }}
+      {{ report.created_at | fromNow }}
     </p>
 
     <p class="text-gray-700 text-lg">
-      <span class="font-bold">#{{ report.category | lowercase }}</span>
+      <span class="font-bold">{{ report.category | categoryHashtag }} </span>
       <span
         class="px-2 py-1 rounded-full text-xs font-bold"
         [ngClass]="{

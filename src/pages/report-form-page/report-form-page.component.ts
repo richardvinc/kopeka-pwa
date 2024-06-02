@@ -1,19 +1,30 @@
 import { environment } from 'src/environments/environment';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
+import {
+  NotificationService,
+  NotificationType,
+} from '@app/shared/services/notification/notification.service';
 import { ReportFormService } from '@app/shared/services/report/report-form.service';
 
 @Component({
   selector: 'app-report-form-page',
   standalone: true,
   templateUrl: './report-form-page.component.html',
-  imports: [CommonModule, GoogleMap, MapMarker],
+  imports: [CommonModule, ReactiveFormsModule, GoogleMap, MapMarker],
 })
 export class ReportFormPageComponent {
+  // map properties
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
   mapId = environment.googleMapId;
   center: google.maps.LatLngLiteral = { lat: 24, lng: 12 };
@@ -28,6 +39,13 @@ export class ReportFormPageComponent {
   };
   userPosition: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
 
+  // form properties
+  isSubmitting = false;
+  reportForm: FormGroup = new FormGroup({
+    category: new FormControl('', Validators.required),
+    condition: new FormControl('', Validators.required),
+  });
+
   categories: { id: string; name: string; selected: boolean }[] = [
     { id: 'ZEBRA_CROSS', name: 'Zebra Cross', selected: false },
     { id: 'SIDEWALK', name: 'Trotoar', selected: false },
@@ -35,13 +53,14 @@ export class ReportFormPageComponent {
     { id: 'PEDESTRIAN_BRIDGE', name: 'JPO', selected: false },
     { id: 'OTHER', name: 'Lainnya', selected: false },
   ];
-  condition: 'GOOD' | 'BAD' | null = null;
   imageData: string | undefined = undefined;
 
   constructor(
     private appConfigService: AppConfigService,
     private reportFormService: ReportFormService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+    private location: Location
   ) {
     this.appConfigService.setPageTitle('Laporan');
     this.reportFormService.$imageData().subscribe((data) => {
@@ -59,6 +78,14 @@ export class ReportFormPageComponent {
     }, alert);
   }
 
+  // form getters
+  get condition(): string {
+    return this.reportForm.get('condition')?.value;
+  }
+  get category(): string {
+    return this.reportForm.get('condition')?.value;
+  }
+
   onCenterChanged() {
     this.userPosition = {
       lat: this.mapRef!.getCenter()?.lat() || this.userPosition.lat,
@@ -67,38 +94,54 @@ export class ReportFormPageComponent {
     console.log('User position:', this.userPosition);
   }
 
+  retakePhoto() {
+    // navigate back to camera page
+    this.location.back();
+  }
+
   selectCategory(id: string) {
     this.categories.map((category) => {
       if (category.id === id) {
-        category.selected = !category.selected;
+        category.selected = true;
+        this.reportForm.controls['category'].setValue(category.id);
       } else {
         category.selected = false;
       }
     });
   }
 
-  toggleCondition(condition: 'GOOD' | 'BAD') {
-    this.condition = condition;
+  selectCondition(condition: 'GOOD' | 'BAD') {
+    this.reportForm.controls['condition'].setValue(condition);
   }
 
-  submitReport() {
+  submitForm() {
     console.log('Submiting Report...');
-    const selectedCategories = this.categories.filter(
-      (category) => category.selected
-    );
+    this.isSubmitting = true;
     this.reportFormService
       .submitReport({
-        category: selectedCategories.filter((category) => category.selected)[0]
-          .id,
-        condition: this.condition || 'GOOD',
+        category: this.reportForm.controls['category'].value,
+        condition: this.reportForm.controls['condition'].value,
+        location: {
+          latitude: this.userPosition.lat,
+          longitude: this.userPosition.lng,
+        },
       })
       .subscribe({
         next: (response) => {
-          console.log('Report submitted:', response);
+          this.notificationService.showNotification(
+            'Laporan berhasil dikirim!',
+            NotificationType.SNACKBAR_SUCCESS
+          );
           this.router.navigate(['/explore']);
+          this.isSubmitting = false;
         },
         error: (error) => {
           console.error('Error submitting report:', error);
+          this.notificationService.showNotification(
+            'Laporan gagal dikirim. Silakan coba lagi.',
+            NotificationType.SNACKBAR_ERROR
+          );
+          this.isSubmitting = false;
         },
       });
   }

@@ -1,4 +1,4 @@
-<div class="w-full">
+<form class="w-full" [formGroup]="reportForm">
   <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
     >Foto</label
   >
@@ -6,12 +6,15 @@
     <img
       class="relative w-full h-64 rounded-sm object-cover object-center mb-4"
       [src]="imageData"
-      alt=""
+      alt="photo of reported pedestrian facility"
     />
     <div
       class="absolute flex w-full h-64 top-0 left-0 items-center justify-center z-10"
     >
-      <button class="px-4 py-2 rounded-lg bg-black opacity-60 text-white">
+      <button
+        class="px-4 py-2 rounded-lg bg-black opacity-60 text-white"
+        (click)="retakePhoto()"
+      >
         ambil ulang
       </button>
     </div>
@@ -36,6 +39,9 @@
         [options]="markerOption"
       ></map-marker>
     </google-map>
+    <div class="text-sm p-1 text-center">
+      Pindahkan pin untuk lokasi yang lebih akurat.
+    </div>
   </div>
   <div class="mb-4">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
@@ -56,6 +62,15 @@
       >
       }
     </div>
+    <div
+      *ngIf="
+        reportForm.get('category')?.hasError('required') &&
+        (reportForm.touched || reportForm.dirty)
+      "
+      class="block text-left text-sm mt-1 text-red-400"
+    >
+      Kategori tidak boleh kosong
+    </div>
   </div>
   <div class="mb-5">
     <label for="remark" class="block mb-2 text-lg font-medium text-gray-900"
@@ -72,7 +87,7 @@
         [ngClass]="{ 'bg-green-400': condition === 'GOOD',
           'bg-white border-slate-200': condition !== 'GOOD',
         }"
-        (click)="toggleCondition('GOOD')"
+        (click)="selectCondition('GOOD')"
       >
         <path
           stroke-linecap="round"
@@ -90,7 +105,7 @@
         [ngClass]="{ 'bg-red-400': condition === 'BAD',
           'bg-white border-slate-200': condition !== 'BAD',
         }"
-        (click)="toggleCondition('BAD')"
+        (click)="selectCondition('BAD')"
       >
         <path
           stroke-linecap="round"
@@ -99,12 +114,23 @@
         />
       </svg>
     </div>
+    <div
+      *ngIf="
+        reportForm.get('condition')?.hasError('required') &&
+        (reportForm.touched || reportForm.dirty)
+      "
+      class="block text-left text-sm mt-1 text-red-400"
+    >
+      Kondisi tidak boleh kosong
+    </div>
   </div>
 
   <button
-    class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
-    (click)="submitReport()"
+    type="submit"
+    [disabled]="!reportForm.valid || isSubmitting"
+    class="text-white bg-blue-500 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center disabled:opacity-40"
+    (click)="submitForm()"
   >
     Kirim
   </button>
-</div>
+</form>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
@@ -11,14 +11,23 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   $title;
-  title: string = 'Homeeeeeeeee';
+  $showBackButton;
+  title: string = 'Home';
+  showBackButton: boolean = false;
+
   constructor(
     private router: Router,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    private location: Location
   ) {
     this.$title = this.appConfigService.getPageTitle().subscribe((title) => {
       this.title = title;
     });
+    this.$showBackButton = this.appConfigService
+      .getShowBackButton()
+      .subscribe((status) => {
+        this.showBackButton = status;
+      });
   }
 
   ngOnInit(): void {}
@@ -27,8 +36,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.$title.unsubscribe();
   }
 
-  goToHome() {
-    this.router.navigate(['/home']);
+  goBack() {
+    this.location.back();
+  }
+  goToExplore() {
+    this.router.navigate(['/explore']);
   }
   goToTimeline() {
     this.router.navigate(['/timeline']);

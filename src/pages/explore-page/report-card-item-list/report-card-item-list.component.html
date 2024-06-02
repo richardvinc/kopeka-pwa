@@ -11,10 +11,10 @@
   <div class="px-6 pt-4 pb-2">
     <div class="flex flex-column mb-2">
       <p class="flex-shrink text-gray-400 text-sm">
-        {{ report.created_at | date : "mediumDate" }}
+        {{ report.created_at | fromNow }}
       </p>
     </div>
-    <p class="text-gray-700 text-lg">#{{ report.category }}</p>
+    <p class="text-gray-700 text-lg">{{ report.category | categoryHashtag }}</p>
     <p class="text-gray-500 text-base">
       dilaporkan oleh: {{ report.reported_by.username }}
     </p>

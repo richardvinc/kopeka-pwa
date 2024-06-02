@@ -26,26 +26,15 @@ interface SasUrlResponseDTO {
 export class ReportFormService {
   private baseUrl = environment.baseUrl;
   private _imageData = new BehaviorSubject<string | undefined>(undefined);
-  private _locationData = new BehaviorSubject<GPSLocation | undefined>({
-    latitude: 0,
-    longitude: 1,
-  });
 
   constructor(private http: HttpClient) {}
 
   $imageData() {
     return this._imageData.asObservable();
   }
-  $locationData() {
-    return this._locationData.asObservable();
-  }
 
   setImageData(value: string | undefined) {
     this._imageData.next(value);
-  }
-
-  setLocationData(value: GPSLocation | undefined) {
-    this._locationData.next(value);
   }
 
   private requestSASUrl(mimeType: string): Observable<SasUrlResponseDTO> {
@@ -66,7 +55,11 @@ export class ReportFormService {
     });
   }
 
-  submitReport(formData: { category: string; condition: string }) {
+  submitReport(formData: {
+    category: string;
+    condition: string;
+    location: GPSLocation;
+  }) {
     return this.requestSASUrl('image/png').pipe(
       mergeMap((res) => {
         return combineLatest([of(res), this.uploadImage(res.sas_url)]);
@@ -76,8 +69,8 @@ export class ReportFormService {
           category: formData.category,
           condition: formData.condition,
           image_url: sasAndAccessUrl.access_url,
-          lat: this._locationData.value!.latitude,
-          lon: this._locationData.value!.longitude,
+          lat: formData.location.latitude,
+          lon: formData.location.longitude,
         })
       ),
       catchError((error) => {

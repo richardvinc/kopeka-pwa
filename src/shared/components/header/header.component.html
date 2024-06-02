@@ -5,8 +5,29 @@
     class="container px-4 mx-auto flex flex-wrap items-center justify-between"
   >
     <div
-      class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start"
+      class="w-full relative flex justify-between items-center lg:w-auto px-4 lg:static lg:block lg:justify-start"
     >
+      <button
+        [hidden]="!showBackButton"
+        class="fixed left-4 text-slate-500 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent outline-none focus:outline-none"
+        type="button"
+        (click)="goBack()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </button>
       <a
         class="text-sm w-full text-center font-bold leading-relaxed inline-block py-2 whitespace-nowrap uppercase text-slate-500"
       >

@@ -1,0 +1,65 @@
+<router-outlet></router-outlet>
+<div class="flex items-center w-full fixed bottom-12 h-auto">
+  <div
+    #snackbar
+    id="snackbar"
+    class="p-4 w-full text-white rounded-md mx-2 flex flex-row justify-between items-center z-50 text-sm"
+    [ngClass]="{
+      hidden: !isSnackbarOpen,
+      'bg-green-600': !isErrorSnackbar,
+      'bg-red-600': isErrorSnackbar
+    }"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="flex-shrink w-6 h-6 mr-4"
+    >
+      <!-- x icon -->
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        [ngClass]="{
+          hidden: !isErrorSnackbar
+        }"
+      />
+      <!-- check icon -->
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        [ngClass]="{
+          hidden: isErrorSnackbar
+        }"
+      />
+    </svg>
+    <div class="flex-1 text-left">{{ errorMessage }}</div>
+    <!-- we hide close button on success alert -->
+    <button
+      class="ml-2 text-white"
+      (click)="closeSnackbar()"
+      [ngClass]="{
+        hidden: !isErrorSnackbar
+      }"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="flex-shrink size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

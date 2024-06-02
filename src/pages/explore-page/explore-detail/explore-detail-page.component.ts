@@ -2,20 +2,32 @@ import { catchError, combineLatest, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Report } from '@app/shared/interfaces/report.interface';
+import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
+import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
+import {
+  NotificationService,
+  NotificationType,
+} from '@app/shared/services/notification/notification.service';
 import { ReportService } from '@app/shared/services/report/report.service';
 
 @Component({
   selector: 'app-explore-detail-page',
   standalone: true,
   templateUrl: './explore-detail-page.component.html',
-  imports: [CommonModule, GoogleMap, MapMarker],
+  imports: [
+    CommonModule,
+    GoogleMap,
+    MapMarker,
+    CategoryHashtagPipe,
+    FromNowPipe,
+  ],
 })
-export class ExploreDetailPageComponent implements OnInit {
+export class ExploreDetailPageComponent implements OnInit, OnDestroy {
   isLoading = false;
   report: Report | null = null;
   nearbyReports: Report[] = [];
@@ -38,9 +50,11 @@ export class ExploreDetailPageComponent implements OnInit {
     private appConfigService: AppConfigService,
     private route: ActivatedRoute,
     private router: Router,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private notificationService: NotificationService
   ) {
     this.appConfigService.setPageTitle('Report Detail');
+    this.appConfigService.setShowBackButton(true);
   }
 
   goToReportDetail(reportId: string) {
@@ -56,6 +70,20 @@ export class ExploreDetailPageComponent implements OnInit {
       geo_hash: geoHash,
       report_id: reportId,
     });
+  }
+
+  triggerSnackBar(isError: boolean) {
+    if (isError) {
+      this.notificationService.showNotification(
+        'This is a snackbar error',
+        NotificationType.SNACKBAR_ERROR
+      );
+    } else {
+      this.notificationService.showNotification(
+        'This is a snackbar success',
+        NotificationType.SNACKBAR_SUCCESS
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -96,8 +124,17 @@ export class ExploreDetailPageComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error fetching report detail:', error);
+          this.notificationService.showNotification(
+            'Gagal mengambil data dari server. Silakan coba lagi atau kembali ke halaman sebelumnya.',
+            NotificationType.SNACKBAR_ERROR
+          );
           this.isLoading = false;
         },
       });
+  }
+
+  ngOnDestroy(): void {
+    this.appConfigService.setShowBackButton(false);
+    console.log('ExploreDetailPageComponent destroyed');
   }
 }

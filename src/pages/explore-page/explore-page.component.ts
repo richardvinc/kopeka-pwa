@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Report } from '@app/shared/interfaces/report.interface';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
+import {
+  NotificationService,
+  NotificationType,
+} from '@app/shared/services/notification/notification.service';
 import { ReportService } from '@app/shared/services/report/report.service';
 
 import { ReportCardItemListComponenet } from './report-card-item-list/report-card-item-list.component';
@@ -24,7 +28,8 @@ export class ExplorePageComponent {
   constructor(
     private appConfigService: AppConfigService,
     private reportService: ReportService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.appConfigService.setPageTitle('Utama');
     this.getReportData();
@@ -68,6 +73,10 @@ export class ExplorePageComponent {
         },
         error: (error) => {
           console.error(error);
+          this.notificationService.showNotification(
+            'Gagal mengambil data dari server.',
+            NotificationType.SNACKBAR_ERROR
+          );
           this.isGettingData = false;
         },
       });
