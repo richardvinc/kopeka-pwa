@@ -16,7 +16,7 @@
     </p>
 
     <p class="text-gray-700 text-lg">
-      #{{ report.category | lowercase }}
+      <span class="font-bold">#{{ report.category | lowercase }}</span>
       <span
         class="px-2 py-1 rounded-full text-xs font-bold"
         [ngClass]="{
@@ -83,13 +83,15 @@
   class="w-full pt-4 px-4 bg-white border border-gray-200 rounded shadow sm:p-8"
 >
   <div class="flex items-center justify-between mb-4">
-    <h5 class="text-xl font-bold leading-none text-gray-900">
+    <p class="text-lg font-bold leading-none text-gray-700">
       Laporan di sekitar lokasi
-    </h5>
+    </p>
   </div>
   <div class="flow-root">
     <ul role="list" class="divide-y divide-gray-200">
-      @for(nearbyReport of nearbyReports; track nearbyReport.id) {
+      @if(nearbyReports.length === 0) {
+      <li class="text-md pb-3">Tidak ada laporan di sekitar lokasi ini</li>
+      } @else { @for(nearbyReport of nearbyReports; track nearbyReport.id) {
       <li class="py-3" (click)="goToReportDetail(nearbyReport.id)">
         <div class="flex items-center content-center">
           <div class="flex-shrink-0">
@@ -136,7 +138,7 @@
           </div>
         </div>
       </li>
-      }
+      }}
     </ul>
   </div>
 </div>
