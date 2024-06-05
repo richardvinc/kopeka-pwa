@@ -7,6 +7,7 @@ import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from '@app/pages/not-found-page/not-found-page.component';
 import { ContainerComponent } from '@app/shared/components/container/container.component';
 import { IsHavingAUsernameGuard } from '@app/shared/guards/is-having-a-username.guard';
+import { IsOnboarded } from '@app/shared/guards/is-onboarded.guard';
 
 export const routes: Routes = [
   {
@@ -73,17 +74,32 @@ export const routes: Routes = [
           ),
       },
     ],
-    canActivate: [AuthGuard, IsHavingAUsernameGuard],
-    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
+    canActivate: [AuthGuard, IsHavingAUsernameGuard, IsOnboarded],
+    data: {
+      authGuardPipe: () => redirectUnauthorizedTo(['login']),
+      isOnboarded: () => redirectUnauthorizedTo(['onboarding']),
+    },
   },
   {
-    path: 'camera',
-    loadComponent: () =>
-      import('../pages/camera-page/camera-page.component').then(
-        (m) => m.CameraPageComponent
-      ),
-    canActivate: [AuthGuard, IsHavingAUsernameGuard],
-    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: 'explore',
+        pathMatch: 'full',
+      },
+      {
+        path: 'camera',
+        loadComponent: () =>
+          import('../pages/camera-page/camera-page.component').then(
+            (m) => m.CameraPageComponent
+          ),
+      },
+    ],
+    canActivate: [AuthGuard, IsHavingAUsernameGuard, IsOnboarded],
+    data: {
+      authGuardPipe: () => redirectUnauthorizedTo(['login']),
+    },
   },
   {
     path: 'create-user',
@@ -95,13 +111,22 @@ export const routes: Routes = [
     data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
   },
   {
+    path: 'onboarding',
+    loadComponent: () =>
+      import('../pages/onboarding-page/onboarding-page.component').then(
+        (m) => m.OnboardingPageComponent
+      ),
+    canActivate: [AuthGuard, IsHavingAUsernameGuard],
+    data: { authGuardPipe: () => redirectUnauthorizedTo(['login']) },
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('../pages/login-page/login-page.component').then(
         (m) => m.LoginPageComponent
       ),
     canActivate: [AuthGuard],
-    data: { authGuardPipe: () => redirectLoggedInTo(['create-user']) },
+    data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {
     path: '**',

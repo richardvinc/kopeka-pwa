@@ -1,0 +1,141 @@
+<div class="block w-full max-w-screen-sm p-8 h-full text-justify">
+  <div class="mb-8 pt-20 flex flex-col items-center">
+    <app-welcome-svg class="mt-4" />
+    <img class="mb-8 w-48" src="assets/logo_black.png" alt="Logo Kopeka" />
+    <h1 class="font-bold text-xl mb-4">Selamat datang di aplikasi Kopeka!</h1>
+    <div class="px-4">
+      <p class="mb-2">
+        Kamu prihatin dengan kondisi fasilitas pejalan kaki di sekitarmu?
+      </p>
+      <p class="mb-4">
+        Tahukah kamu pada tahun 2017,
+        <span class="font-bold">14 pejalan kaki meninggal dunia</span> di
+        Indonesia <span class="font-bold">setiap harinya</span>?
+      </p>
+      <p>
+        Kami butuh bantuan kamu untuk melaporkan kondisi fasilitas pejalan kaki
+        (pedestrian) di sekitarmu.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Untuk apa data ini dikumpulkan?</h1>
+    <app-advocation-svg class="my-4" />
+    <div class="px-4">
+      <p>
+        Laporanmu dan laporan lainnya yang terkumpul akan menjadi bagian dari
+        bahan advokasi kami, Koalisi Pejalan Kaki, ke pemerintah daerahmu.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Tambahkan laporan</h1>
+    <img
+      class="w-60"
+      src="assets/onboarding/report_button.png"
+      alt="Tombol report"
+    />
+    <div class="px-4">
+      <p>
+        Tekan tombol + untuk mengambil foto kondisi fasilitas pejalan kaki yang
+        kamu temui, pilih kategori yang sesuai, dan baik/buruk kondisinya.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Lihat laporan</h1>
+    <img
+      class="w-60"
+      src="assets/onboarding/explore_button.png"
+      alt="Tombol explore"
+    />
+    <div class="px-4">
+      <p>
+        Kamu juga dapat melihat laporan lain melalui menu ini, sehingga kamu
+        dapat mengetahui kondisi fasilitas pedestrian di sekitarmu.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Beri reaksi</h1>
+    <img
+      class="w-52 mb-2"
+      src="assets/onboarding/reaction_button.png"
+      alt="Tombol reaction"
+    />
+    <div class="px-4">
+      <p>
+        Menemukan kondisi fasilitas pedestrian yang menarik perhatianmu? Kamu
+        dapat memberikan <em>reaction</em> pada laporan tersebut.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Privasi kamu penting!</h1>
+    <app-personal-data-svg class="my-4" />
+    <div class="px-4">
+      <p class="mb-2">
+        Kami percaya bahwa privasi kamu
+        <span class="font-bold">sangat penting</span>. Jangan khawatir, semua
+        laporan bersifat anonim dan kami
+        <span class="font-bold">tidak menyimpan data pribadi kamu</span>.
+      </p>
+      <p>
+        Kamu bisa membaca cara kami menyimpan data, membuat akun, dan kebijakan
+        privasi kami lebih lanjut di sini atau di halaman <br />
+        <a
+          class="underline text-blue-700"
+          href="https://kebijakan-privasi.kopeka.id"
+          target="_blank"
+          >kebijakan-privasi.kopeka.id</a
+        >.
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 flex flex-col items-center">
+    <h1 class="font-bold text-xl mb-2">Akses lokasi dan kamera</h1>
+    <app-permission-svg class="my-4" />
+    <div class="px-4">
+      <p class="mb-2">
+        Untuk dapat membuat laporan yang akurat,
+        <span class="font-bold"
+          >kami membutuhkan akses kamera dan lokasi kamu</span
+        >.
+      </p>
+      <p>
+        Sayangnya, tanpa akses ini, kamu tidak dapat menggunakan aplikasi 😢
+      </p>
+    </div>
+    <!-- (ketika tombol larang ditekan, muncul modal konfirmasi: "apakah kamu yakin?
+    kamu tidak dapat menggunakan aplikasi ini tanpa akses kamera dan lokasi dan
+    kamu akan diarahkan ke halaman login awal. Kamu tetap bisa melihat laporan
+    di <span class="underline text-blue-700">peta.kopeka.id</span>") -->
+    <div class="mt-4 flex flex-col w-full gap-2">
+      <button
+        class="flex-1 justify-center text-white bg-blue-500 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+        (click)="requestPermission()"
+      >
+        Izinkan Akses
+      </button>
+      <button
+        class="flex-1 justify-center text-white bg-slate-400 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+        (click)="denyPermission()"
+      >
+        Larang Akses
+      </button>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <p class="mb-2">
+      Ayo, bersama-sama kita memperjuangkan hak pejalan kaki di Indonesia!
+    </p>
+    <p>Kembalikan hak pedestrian, selamatkan jiwa.</p>
+  </div>
+</div>

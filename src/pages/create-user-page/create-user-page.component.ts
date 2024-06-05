@@ -46,17 +46,7 @@ export class CreateUserPageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private uniqueUsernameValidator: UniqueUsernameValidator
-  ) {
-    this.userService.isHavingUsername().subscribe((isHavingUsername) => {
-      if (isHavingUsername) {
-        console.log('User already has a username');
-        this.router.navigate(['/explore']);
-      } else {
-        console.log("User doesn't have a username yet");
-        this.isLoading = false;
-      }
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.userService
@@ -83,7 +73,7 @@ export class CreateUserPageComponent implements OnInit {
         profile_picture_url: 'https://avatar.iran.liara.run/public',
       })
       .subscribe((user) => {
-        this.router.navigate(['/explore']);
+        this.router.navigate(['/onboarding']);
       });
   }
 }

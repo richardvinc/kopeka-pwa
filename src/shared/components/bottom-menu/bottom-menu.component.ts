@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-bottom-menu',
@@ -8,5 +8,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLinkActive, RouterLink],
 })
 export class BottomMenuComponent {
-  constructor() {}
+  constructor(private router: Router) {}
+
+  goToCamera() {
+    this.router.navigate(['/camera']);
+  }
 }

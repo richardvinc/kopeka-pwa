@@ -69,13 +69,21 @@ export class ReportFormPageComponent {
       }
       this.imageData = data;
     });
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      this.userPosition = this.center;
-    }, alert);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        this.userPosition = this.center;
+      },
+      alert,
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 10,
+      }
+    );
   }
 
   // form getters

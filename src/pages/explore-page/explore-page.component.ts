@@ -40,7 +40,7 @@ export class ExplorePageComponent {
   }
 
   onScrolled() {
-    console.log('scrolled!');
+    console.log('scrolled to the bottom!');
     if (this.isGettingData) {
       return;
     }

@@ -11,6 +11,7 @@ import {
   GetUsernameRecommendationRequestDTO,
   GetUsernameRecommendationResponseDTO,
 } from './dto/get-username-recommendation.dto';
+import { UpdateUserRequestDTO } from './dto/update-user.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,14 @@ export class UserService {
     );
   }
 
+  isOnboarded(): Observable<boolean> {
+    return this.getSelf().pipe(
+      map((user) => {
+        return !!user?.is_onboarded;
+      })
+    );
+  }
+
   getUsernameRecommendations(
     alreadyRecommendedUsernames?: GetUsernameRecommendationRequestDTO
   ): Observable<string[]> {
@@ -56,6 +65,12 @@ export class UserService {
   createUsername(user: CreateUsernameRequestDTO): Observable<User> {
     return this.http
       .post<BaseResponse<User>>(`${this.baseUrl}/users/username`, user)
+      .pipe(map((res) => res.data));
+  }
+
+  updateSelf(dto: UpdateUserRequestDTO): Observable<User> {
+    return this.http
+      .put<BaseResponse<User>>(`${this.baseUrl}/users/self`, dto)
       .pipe(map((res) => res.data));
   }
 }

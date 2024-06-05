@@ -30,7 +30,6 @@ export class ReportService {
       })
       .pipe(
         map((res) => {
-          console.log('res', res);
           return { reports: res.data, nextToken: res.nextToken };
         })
       );
@@ -46,7 +45,6 @@ export class ReportService {
       })
       .pipe(
         map((res) => {
-          console.log('res', res);
           return res.data;
         })
       );
@@ -57,7 +55,6 @@ export class ReportService {
       .get<BaseResponse<Report>>(`${this.baseUrl}/reports/${reportId}`)
       .pipe(
         map((res) => {
-          console.log('res', res);
           return res.data;
         })
       );
