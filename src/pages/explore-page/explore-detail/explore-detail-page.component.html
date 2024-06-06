@@ -34,7 +34,7 @@
     <span class="flex-grow text-gray-400 text-sm mt-1"
       >{{ report.total_reaction }} orang memberi reaksi</span
     >
-    <span class="flex-shrink inline-block mr-2 mb-2"
+    <span class="flex-shrink inline-block mr-2 mb-2" (click)="reactToReport()"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -92,16 +92,22 @@
       @if(nearbyReports.length === 0) {
       <li class="text-md pb-3">Tidak ada laporan di sekitar lokasi ini</li>
       } @else { @for(nearbyReport of nearbyReports; track nearbyReport.id) {
-      <li class="py-3" (click)="goToReportDetail(nearbyReport.id)">
+      <li class="py-3">
         <div class="flex items-center content-center">
-          <div class="flex-shrink-0">
+          <div
+            class="flex-shrink-0"
+            (click)="goToReportDetail(nearbyReport.id)"
+          >
             <img
               class="w-8 h-8 rounded-sm"
               [src]="nearbyReport.image_url"
               alt=""
             />
           </div>
-          <div class="flex-1 min-w-0 ms-4">
+          <div
+            class="flex-1 min-w-0 ms-4"
+            (click)="goToReportDetail(nearbyReport.id)"
+          >
             <p class="text-xs text-gray-400 truncate">
               {{ nearbyReport.created_at | date : "mediumDate" }}
             </p>
@@ -109,10 +115,10 @@
               #{{ nearbyReport.category | lowercase }} dalam kondisi
               {{ nearbyReport.condition === "GOOD" ? "baik" : "buruk" }}
             </p>
-            <!-- <p class="text-sm font-medium text-gray-900 truncate">Good</p> -->
           </div>
           <div
             class="inline-flex items-center text-base font-semibold text-gray-900"
+            (click)="reactToNearbyReport(nearbyReport.id)"
           >
             <span>{{ nearbyReport.total_reaction }}</span>
             <svg

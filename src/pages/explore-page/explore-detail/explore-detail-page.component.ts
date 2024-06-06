@@ -65,6 +65,40 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
     return this.reportService.getReportDetail(reportId);
   }
 
+  reactToReport() {
+    if (this.report) {
+      this.report.is_reacted = !this.report.is_reacted;
+
+      if (this.report.is_reacted) {
+        this.reportService.likeReport(this.report.id).subscribe();
+        this.report.total_reaction += 1;
+      } else {
+        this.reportService.unlikeReport(this.report.id).subscribe();
+        this.report.total_reaction -= 1;
+      }
+    }
+  }
+
+  reactToNearbyReport(reportId: string) {
+    if (this.nearbyReports.length > 0) {
+      const nearbyReport = this.nearbyReports.find(
+        (report) => report.id === reportId
+      );
+      if (!nearbyReport) {
+        return;
+      }
+      nearbyReport.is_reacted = !nearbyReport.is_reacted;
+
+      if (nearbyReport.is_reacted) {
+        this.reportService.likeReport(nearbyReport.id).subscribe();
+        nearbyReport.total_reaction += 1;
+      } else {
+        this.reportService.unlikeReport(nearbyReport.id).subscribe();
+        nearbyReport.total_reaction -= 1;
+      }
+    }
+  }
+
   getNearbyReports(reportId: string, geoHash: string) {
     return this.reportService.getNearbyReports({
       geo_hash: geoHash,
@@ -135,6 +169,5 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.appConfigService.setShowBackButton(false);
-    console.log('ExploreDetailPageComponent destroyed');
   }
 }

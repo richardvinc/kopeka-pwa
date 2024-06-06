@@ -12,9 +12,18 @@ import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 })
 export class ReportCardItemListComponenet {
   @Output() clicked = new EventEmitter<string>();
-  @Input() report: Report | null = null;
+  @Output() reacted = new EventEmitter<{
+    reportId: string;
+    isReacted: boolean;
+  }>();
+  @Input({ required: true }) report!: Report;
 
   goToReportDetail(reportId: string) {
     this.clicked.emit(reportId);
+  }
+
+  reactToReport(reportId: string) {
+    this.report.is_reacted = !this.report.is_reacted;
+    this.reacted.emit({ reportId, isReacted: this.report.is_reacted });
   }
 }

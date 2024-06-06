@@ -59,4 +59,15 @@ export class ReportService {
         })
       );
   }
+
+  likeReport(reportId: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/reports/${reportId}/like`, {});
+  }
+
+  unlikeReport(reportId: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/reports/${reportId}/unlike`,
+      {}
+    );
+  }
 }

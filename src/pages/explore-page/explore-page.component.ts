@@ -39,6 +39,15 @@ export class ExplorePageComponent {
     this.router.navigate(['/explore/detail', reportId]);
   }
 
+  reactToReport(param: { reportId: string; isReacted: boolean }) {
+    console.log('Reacted to report with id:', param.reportId);
+    if (param.isReacted) {
+      this.reportService.likeReport(param.reportId).subscribe();
+    } else {
+      this.reportService.unlikeReport(param.reportId).subscribe();
+    }
+  }
+
   onScrolled() {
     console.log('scrolled to the bottom!');
     if (this.isGettingData) {

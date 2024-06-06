@@ -1,20 +1,28 @@
 @if(report) {
-<div
-  class="w-full rounded shadow-lg mb-4 relative"
-  (click)="goToReportDetail(report.id)"
->
+<div class="w-full rounded shadow-lg mb-4 relative">
   <img
     class="w-full h-64 object-fill"
     [src]="report.image_url"
     alt="image of reported pedestrian facility"
+    (click)="goToReportDetail(report.id)"
   />
-  <div class="px-6 pt-4 pb-2">
+  <div class="px-6 pt-4 pb-2" (click)="goToReportDetail(report.id)">
     <div class="flex flex-column mb-2">
       <p class="flex-shrink text-gray-400 text-sm">
         {{ report.created_at | fromNow }}
       </p>
     </div>
-    <p class="text-gray-700 text-lg">{{ report.category | categoryHashtag }}</p>
+    <p class="text-gray-700 text-lg">
+      {{ report.category | categoryHashtag }}
+      <span
+        class="ml-1 px-2 py-1 rounded-full text-xs font-bold"
+        [ngClass]="{
+          'bg-green-200 text-green-800': report.condition === 'GOOD',
+          'bg-red-200 text-red-800': report.condition === 'BAD'
+        }"
+        >Kondisi {{ report.condition === "GOOD" ? "baik" : "buruk" }}</span
+      >
+    </p>
     <p class="text-gray-500 text-base">
       dilaporkan oleh: {{ report.reported_by.username }}
     </p>
@@ -27,7 +35,8 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-8 h-8"
+        class="w-8 h-8 z-50"
+        (click)="reactToReport(report.id)"
         [ngClass]="{ 'fill-red-400': report.is_reacted }"
       >
         <path
