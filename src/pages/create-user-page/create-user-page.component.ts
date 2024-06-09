@@ -56,6 +56,7 @@ export class CreateUserPageComponent implements OnInit {
           value: username,
           selected: false,
         }));
+        this.isLoading = false;
       });
   }
 
