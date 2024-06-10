@@ -34,6 +34,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
   mapOption: google.maps.MapOptions = {
     disableDefaultUI: true,
     disableDoubleClickZoom: true,
+    clickableIcons: false,
   };
   markerOption: google.maps.marker.AdvancedMarkerElementOptions = {
     gmpDraggable: false,
@@ -91,6 +92,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
 
   private updateUserPosition() {
     console.log('User position updated: ', this.center);
+    if (this.userPosition === this.center) return;
     this.userPosition = this.center;
     this.reportsAroundUser = this.getNearbyReports(this.userPosition);
     this.resetUserPositionUpdateTimer();
@@ -140,12 +142,12 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  // user can only get nearby reports on map drag every 5 seconds
+  // user can only get nearby reports on map drag every 2.5 seconds
   private resetMapDragTimer() {
     this.isReadyToDragMap = false;
     setTimeout(() => {
       this.isReadyToDragMap = true;
-    }, 5000);
+    }, 2500);
   }
 
   // user can only get nearby report on their position every 15 seconds
