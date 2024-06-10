@@ -13,6 +13,7 @@
       *ngFor="let marker of reportsNearby"
       [position]="marker"
       [options]="markerOption"
+      (mapClick)="onMarkerClick(marker)"
     >
     </map-advanced-marker>
     <map-advanced-marker

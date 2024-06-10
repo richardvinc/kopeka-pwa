@@ -33,6 +33,7 @@ export class ReportFormPageComponent {
     disableDefaultUI: true,
     disableDoubleClickZoom: true,
     clickableIcons: false,
+    gestureHandling: 'greedy',
   };
   markerOption: google.maps.marker.AdvancedMarkerElementOptions = {
     gmpDraggable: false,

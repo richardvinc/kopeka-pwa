@@ -9,12 +9,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
+import { Router } from '@angular/router';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
 import { ReportService } from '@app/shared/services/report/report.service';
+
+type LatLngWithReportId = google.maps.LatLngLiteral & { reportId: string };
 
 @Component({
   selector: 'app-map-page',
@@ -56,13 +59,14 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
   };
   mapId = environment.googleMapId;
 
-  reportsNearby: google.maps.LatLngLiteral[] = [];
-  reportsAroundUser: google.maps.LatLngLiteral[] = [];
+  reportsNearby: LatLngWithReportId[] = [];
+  reportsAroundUser: LatLngWithReportId[] = [];
 
   constructor(
     private appConfigService: AppConfigService,
     private reportService: ReportService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {
     this.appConfigService.setPageTitle('Peta');
     this.watchId = navigator.geolocation.watchPosition(
@@ -90,6 +94,10 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
     );
   }
 
+  public onMarkerClick(marker: LatLngWithReportId) {
+    this.router.navigate(['/explore/detail', marker.reportId]);
+  }
+
   private updateUserPosition() {
     console.log('User position updated: ', this.center);
     if (this.userPosition === this.center) return;
@@ -100,8 +108,8 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
 
   private getNearbyReports(
     position: google.maps.LatLngLiteral
-  ): google.maps.LatLngLiteral[] {
-    const markers: google.maps.LatLngLiteral[] = [];
+  ): LatLngWithReportId[] {
+    const markers: LatLngWithReportId[] = [];
     this.reportService
       .getNearbyReports({
         latitude: position.lat,
@@ -111,6 +119,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
         console.log('Nearby reports found: ', reports.length);
         reports.map((report) => {
           markers.push({
+            reportId: report.id,
             lat: report.location.latitude,
             lng: report.location.longitude,
           });
