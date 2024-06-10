@@ -83,8 +83,8 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 5000,
+        timeout: 15000,
+        maximumAge: 10000,
       }
     );
   }
