@@ -1,7 +1,7 @@
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BaseResponse,
@@ -36,12 +36,17 @@ export class ReportService {
   }
 
   getNearbyReports(dto: GetNearbyReportsDTO): Observable<Report[]> {
+    let params: HttpParams = new HttpParams();
+    if (dto.latitude && dto.longitude) {
+      params = params.set('latitude', dto.latitude);
+      params = params.set('longitude', dto.longitude);
+    } else if (dto.geo_hash && dto.report_id) {
+      params = params.set('geo_hash', dto.geo_hash);
+      params = params.set('report_id', dto.report_id);
+    }
     return this.http
       .get<BaseResponse<Report[]>>(`${this.baseUrl}/reports/nearby`, {
-        params: {
-          geo_hash: dto.geo_hash,
-          report_id: dto.report_id,
-        },
+        params,
       })
       .pipe(
         map((res) => {

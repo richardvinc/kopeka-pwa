@@ -112,7 +112,7 @@
               {{ nearbyReport.created_at | date : "mediumDate" }}
             </p>
             <p class="text-sm font-medium text-gray-900 truncate">
-              #{{ nearbyReport.category | lowercase }} dalam kondisi
+              {{ nearbyReport.category | categoryHashtag }} dalam kondisi
               {{ nearbyReport.condition === "GOOD" ? "baik" : "buruk" }}
             </p>
           </div>
