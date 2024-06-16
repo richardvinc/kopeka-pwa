@@ -58,6 +58,7 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
   }
 
   goToReportDetail(reportId: string) {
+    this.isLoading = true;
     this.router.navigate(['explore/detail', reportId]);
   }
 
@@ -150,8 +151,8 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
           this.report = report;
           this.nearbyReports = nearbyReport;
           this.center = {
-            lat: report.location.lat,
-            lng: report.location.lon,
+            lat: report.location.latitude,
+            lng: report.location.longitude,
           };
           this.reportPosition = this.center;
           this.isLoading = false;

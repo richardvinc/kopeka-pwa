@@ -1,0 +1,12 @@
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+>
+  <p class="mb-4">Versi Aplikasi: {{ appVersion }}</p>
+  <h1 class="font-bold text-lg">Sejarah Pengembangan</h1>
+  @for (item of changelogMessage; track $index) {
+  <h2 class="font-bold">{{ item.version }}</h2>
+  <p class="text-left mb-2">
+    {{ item.changes.join("\n") }}
+  </p>
+  }
+</div>

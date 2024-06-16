@@ -73,6 +73,13 @@ export const routes: Routes = [
             (m) => m.ProfilePageComponent
           ),
       },
+      {
+        path: 'profile/changelog',
+        loadComponent: () =>
+          import(
+            '../pages/profile-page/changelog-page/changelog-page.component'
+          ).then((m) => m.ChangelogPageComponent),
+      },
     ],
     canActivate: [AuthGuard, IsHavingAUsernameGuard, IsOnboarded],
     data: {

@@ -47,8 +47,8 @@ export class ReportFormService {
   private sendReportData(dto: CreateReportDTO) {
     console.log('Sending report data');
     return this.http.post(`${this.baseUrl}/reports`, {
-      lat: dto.lat,
-      lon: dto.lon,
+      latitude: dto.latitude,
+      longitude: dto.longitude,
       image_url: dto.image_url,
       category: dto.category,
       condition: dto.condition,
@@ -69,8 +69,8 @@ export class ReportFormService {
           category: formData.category,
           condition: formData.condition,
           image_url: sasAndAccessUrl.access_url,
-          lat: formData.location.latitude,
-          lon: formData.location.longitude,
+          latitude: formData.location.latitude,
+          longitude: formData.location.longitude,
         })
       ),
       catchError((error) => {

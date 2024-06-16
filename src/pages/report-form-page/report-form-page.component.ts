@@ -33,6 +33,7 @@ export class ReportFormPageComponent {
     disableDefaultUI: true,
     disableDoubleClickZoom: true,
     clickableIcons: false,
+    gestureHandling: 'greedy',
   };
   markerOption: google.maps.marker.AdvancedMarkerElementOptions = {
     gmpDraggable: false,
@@ -47,8 +48,8 @@ export class ReportFormPageComponent {
   });
 
   categories: { id: string; name: string; selected: boolean }[] = [
-    { id: 'ZEBRA_CROSS', name: 'Zebra Cross', selected: false },
     { id: 'SIDEWALK', name: 'Trotoar', selected: false },
+    { id: 'ZEBRA_CROSS', name: 'Zebra Cross', selected: false },
     { id: 'PELICAN_CROSSING', name: 'Pelican Crossing', selected: false },
     { id: 'PEDESTRIAN_BRIDGE', name: 'JPO', selected: false },
     { id: 'OTHER', name: 'Lainnya', selected: false },

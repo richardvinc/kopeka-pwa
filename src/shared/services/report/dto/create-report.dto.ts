@@ -1,6 +1,6 @@
 export interface CreateReportDTO {
-  lat: number;
-  lon: number;
+  latitude: number;
+  longitude: number;
   image_url: string;
   category: string;
   condition: string;

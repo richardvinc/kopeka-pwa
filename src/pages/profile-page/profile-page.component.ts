@@ -1,3 +1,4 @@
+import { app } from 'src/app/changelog';
 import { environment } from 'src/environments/environment';
 
 import { Component } from '@angular/core';
@@ -15,6 +16,7 @@ import { UserService } from '@app/shared/services/user/user.service';
 export class ProfilePageComponent {
   user: User | null = null;
   appName = environment.appName;
+  appVersion = app.version;
 
   constructor(
     private appConfigService: AppConfigService,
@@ -26,6 +28,10 @@ export class ProfilePageComponent {
     this.userService.getSelf().subscribe((user) => {
       this.user = user;
     });
+  }
+
+  async goToChangelogPage() {
+    this.router.navigate(['/profile/changelog']);
   }
 
   async logout() {
