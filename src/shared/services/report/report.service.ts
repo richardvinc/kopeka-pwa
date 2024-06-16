@@ -65,6 +65,18 @@ export class ReportService {
       );
   }
 
+  getReportsByCampaignId(campaignId: string): Observable<Report[]> {
+    return this.http
+      .get<BaseResponse<Report[]>>(
+        `${this.baseUrl}/reports/campaign/${campaignId}`
+      )
+      .pipe(
+        map((res) => {
+          return res.data;
+        })
+      );
+  }
+
   likeReport(reportId: string): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/reports/${reportId}/like`, {});
   }

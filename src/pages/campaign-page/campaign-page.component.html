@@ -1,10 +1,4 @@
-<button
-  class="border border-solid text-black font-bold p-2 text-sm rounded-sm mb-2"
-  (click)="toogleIsCampaigning()"
->
-  toogle isCampaigning
-</button>
-@if (isCampaigning) {
+@if (!isCampaigning) {
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
@@ -13,6 +7,7 @@
   </p>
   <button
     class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded"
+    (click)="createCampaign()"
   >
     Mulai Kampanye Baru
   </button>
@@ -26,19 +21,20 @@
   <button
     class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded disabled:opacity-40"
     [disabled]="this.campaignCode.length !== 6"
+    (click)="joinCampaign()"
   >
     Gabung Kampanye
   </button>
 </div>
-} @else {
+} @else if(isCampaigning && campaign) {
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
   <p class="mb-2">Saat ini kamu sedang tergabung dengan kampanye dengan kode</p>
   <input
     type="text"
-    class="w-full mb-4 text-xl border border-gray-300 p-2 rounded-lg"
-    value="ABC123"
+    class="w-full mb-4 text-xl border border-gray-300 p-2 rounded-lg uppercase"
+    [value]="campaign.shortcode"
     disabled
   />
   <button
@@ -66,7 +62,7 @@
       class="flex flex-1 flex-col justify-center items-center bg-slate-100 rounded-lg p-4 mb-2"
     >
       <p class="text-lg">Kampanye berlangsung</p>
-      <p class="font-extrabold text-2xl">2 jam: 52 menit: 12 detik</p>
+      <p class="font-extrabold text-2xl">{{ campaignRunningTime }}</p>
     </div>
   </div>
   <div class="flex flex-row gap-2 justify-center items-center">
@@ -74,13 +70,13 @@
       class="flex flex-1 flex-col justify-center items-center border-solid border-2 rounded-lg p-4 mb-2"
     >
       <p class="text-lg">Total Peserta</p>
-      <p class="font-extrabold">23</p>
+      <p class="font-extrabold">{{ campaign.total_campaigners }}</p>
     </div>
     <div
       class="flex flex-1 flex-col justify-center items-center border-solid border-2 rounded-lg p-4 mb-2"
     >
       <p class="text-lg">Total Laporan</p>
-      <p class="font-extrabold">23</p>
+      <p class="font-extrabold">{{ campaign.total_reports }}</p>
     </div>
   </div>
 
@@ -90,32 +86,33 @@
   </p>
 </div>
 <div
-  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 px-4 pt-4"
 >
   <div class="mb-2">
-    <p class="text-lg font-bold mb-2">Laporan dalam Kampanye Ini</p>
+    <p class="text-lg font-bold mb-2">Laporan Terakhir dalam Kampanye Ini</p>
   </div>
+  @if (campaignReports.length > 0) {
   <ul role="list" class="divide-y divide-gray-200">
-    @for (item of [1,2,3,4]; track $index) {
+    @for (report of campaignReports; track report.id) {
     <li class="py-3">
       <div class="flex items-center content-center">
-        <div class="flex-shrink-0">
-          <img
-            class="w-8 h-8 rounded-sm"
-            src="https://devkopekabucket.blob.core.windows.net/reports/1717575564456_d23f9dfb-928f-4227-aff5-869372947e94.png"
-            alt=""
-          />
+        <div class="flex-shrink-0" (click)="goToReportDetail(report.id)">
+          <img class="w-8 h-8 rounded-sm" [src]="report.image_url" alt="" />
         </div>
-        <div class="flex-1 min-w-0 ms-4">
-          <p class="text-xs text-gray-400 truncate">3 menit yang lalu</p>
+        <div class="flex-1 min-w-0 ms-4" (click)="goToReportDetail(report.id)">
+          <p class="text-xs text-gray-400 truncate">
+            {{ report.created_at | fromNow }}
+          </p>
           <p class="text-sm font-medium text-gray-900 truncate">
-            #Trotoar dalam kondisi baik
+            {{ report.category | categoryHashtag }} dalam kondisi
+            {{ report.condition === "GOOD" ? "baik" : "buruk" }}
           </p>
         </div>
         <div
           class="inline-flex items-center text-base font-semibold text-gray-900"
+          (click)="reactToreport(report.id)"
         >
-          <span>3</span>
+          <span>{{ report.total_reaction }}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -123,7 +120,7 @@
             stroke-width="1.5"
             stroke="currentColor"
             class="w-6 h-6"
-            [ngClass]="{ 'fill-red-400': true }"
+            [ngClass]="{ 'fill-red-400': report.is_reacted }"
           >
             <path
               stroke-linecap="round"
@@ -141,5 +138,14 @@
     </li>
     }
   </ul>
+  } @else {
+  <p class="text-sm text-gray-400">Belum ada laporan dalam kampanye ini.</p>
+  }
+</div>
+} @else {
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+>
+  <div>mengambil data...</div>
 </div>
 }
