@@ -7,6 +7,6 @@ export interface Report {
   reported_by: { id: string; username: string };
   category: string;
   condition: string;
-  created_at: string;
-  updated_at: string | null;
+  created_at: number;
+  updated_at?: number;
 }

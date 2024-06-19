@@ -19,6 +19,6 @@ export class LoginPageComponent {
   }
 
   async logout() {
-    await this.authService.logout();
+    await this.router.navigate(['/logout']);
   }
 }

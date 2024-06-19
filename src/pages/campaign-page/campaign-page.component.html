@@ -1,4 +1,10 @@
-@if (!isCampaigning) {
+@if(isLoading) {
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+>
+  <div>memuat data...</div>
+</div>
+} @else { @if (!isCampaigning) {
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
@@ -39,12 +45,18 @@
   />
   <button
     class="w-full mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded"
+    (click)="copyCampaignCode()"
   >
     Salin Kode Kampanye
   </button>
-  <!-- <button class="w-full text-slate-400 font-bold p-2 text-sm rounded">
-    Akhiri Kampanye
-  </button> -->
+  @if(campaign.created_by.id !== userId) {
+  <button
+    class="w-full bg-slate-100 text-slate-400 font-bold p-2 text-sm rounded"
+    (click)="leaveCampaign()"
+  >
+    Keluar dari Kampanye
+  </button>
+  }
 </div>
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
@@ -52,17 +64,28 @@
   <div class="flex flex-row items-center mb-2">
     <p class="flex flex-1 text-lg font-bold mb-2">Seputar Kampanye</p>
     <p
-      class="flex flex-shrink px-2 py-1 rounded-full text-xs font-bold bg-green-200 text-green-800"
+      class="flex flex-shrink px-2 py-1 rounded-full text-xs font-bold"
+      [ngClass]="{
+        'bg-green-100 text-green-800': !isCampaignExpired,
+        'bg-red-100 text-red-800': isCampaignExpired
+      }"
     >
-      Masih berjalan
+      @if (isCampaignExpired) { Kampanye berakhir } @else { Kampanye berlangsung
+      }
     </p>
   </div>
   <div class="flex justify-center items-center mb-2">
     <div
       class="flex flex-1 flex-col justify-center items-center bg-slate-100 rounded-lg p-4 mb-2"
     >
-      <p class="text-lg">Kampanye berlangsung</p>
+      <p class="text-lg">
+        @if (isCampaignExpired) { Durasi kampanye } @else { Kampanye berlangsung
+        }
+      </p>
       <p class="font-extrabold text-2xl">{{ campaignRunningTime }}</p>
+      @if (!isCampaignExpired) {
+      <p class="text-xs py-2">Berakhir dalam {{ campaignToEndTime }}</p>
+      }
     </div>
   </div>
   <div class="flex flex-row gap-2 justify-center items-center">
@@ -80,10 +103,12 @@
     </div>
   </div>
 
+  @if (!isCampaignExpired) {
   <p class="mt-4 text-xs">
     Data di atas adalah estimasi. Data akurat akan tersedia setelah kampanye
     berakhir.
   </p>
+  }
 </div>
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 px-4 pt-4"
@@ -139,7 +164,9 @@
     }
   </ul>
   } @else {
-  <p class="text-sm text-gray-400">Belum ada laporan dalam kampanye ini.</p>
+  <p class="text-sm text-gray-400 pb-4">
+    Belum ada laporan dalam kampanye ini.
+  </p>
   }
 </div>
 } @else {
@@ -148,4 +175,4 @@
 >
   <div>mengambil data...</div>
 </div>
-}
+} }

@@ -136,6 +136,13 @@ export const routes: Routes = [
     data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
   },
   {
+    path: 'logout',
+    loadComponent: () =>
+      import('../pages/logout-page/logout-page.component').then(
+        (m) => m.LogoutPageComponent
+      ),
+  },
+  {
     path: '**',
     component: NotFoundPageComponent,
   },

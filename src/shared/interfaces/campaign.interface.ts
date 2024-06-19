@@ -8,7 +8,7 @@ export interface Campaign {
   total_campaigners: number;
   total_reports: number;
   expired_at: Date;
-  start_date: Date;
-  created_at: Date;
-  updated_at?: Date;
+  start_date: number;
+  created_at: number;
+  updated_at?: number;
 }
