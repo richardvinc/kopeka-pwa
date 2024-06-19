@@ -1,5 +1,12 @@
-const appVersion = '1.2.0';
+const appVersion = '1.2.1';
 const appChangelog = [
+  {
+    version: '1.2.1',
+    changes: [
+      'Perbaikan tampilan halaman kampanye',
+      'Perbaikan bug minor saat membuat kampanye baru',
+    ],
+  },
   {
     version: '1.2.0',
     changes: ['Menambahkan fitur kampanye'],

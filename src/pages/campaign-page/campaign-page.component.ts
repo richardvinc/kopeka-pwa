@@ -57,9 +57,7 @@ export class CampaignPageComponent {
   createCampaign(): void {
     this.isLoading = true;
     this.campaignService.createCampaign({}).subscribe((campaign) => {
-      this.campaign = campaign;
-      this.isCampaigning = true;
-      this.isLoading = false;
+      this.getUserActiveCampaign();
     });
   }
 
