@@ -118,11 +118,12 @@ export class CampaignPageComponent {
                   .subscribe((reports) => {
                     this.campaignReports = reports;
                   });
+              } else {
+                this.isCampaigning = false;
+                this.campaign = null;
               }
             });
         } else {
-          this.isCampaigning = false;
-          this.campaign = null;
           this.isLoading = false;
         }
       },
@@ -139,6 +140,10 @@ export class CampaignPageComponent {
 
   goToReportDetail(reportId: string) {
     this.router.navigate(['explore/detail', reportId]);
+  }
+
+  goToCampaignInfo() {
+    this.router.navigate(['campaign/info']);
   }
 
   reactToreport(reportId: string) {

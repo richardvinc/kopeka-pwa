@@ -4,18 +4,20 @@
 >
   <div>memuat data...</div>
 </div>
-} @else { @if (!isCampaigning) {
+} @else {
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
+  @if (!isCampaigning) {
   <p class="mb-2">
-    Ajak teman-temanmu untuk berjalan bersama dan simpan rute perjalananmu.
+    Ajak teman-temanmu untuk berjalan bersama dan simpan rute perjalananmu
+    dengan <strong>kampanye Tamasya Trotoar</strong>!
   </p>
   <button
     class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded"
     (click)="createCampaign()"
   >
-    Mulai Kampanye Baru
+    Buat Kampanye Baru
   </button>
   <p class="mt-4 mb-2">Punya kode kampanye?</p>
   <input
@@ -31,11 +33,7 @@
   >
     Gabung Kampanye
   </button>
-</div>
-} @else if(isCampaigning && campaign) {
-<div
-  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
->
+  } @else if(isCampaigning && campaign) {
   <p class="mb-2">Saat ini kamu sedang tergabung dengan kampanye dengan kode</p>
   <input
     type="text"
@@ -56,8 +54,15 @@
   >
     Keluar dari Kampanye
   </button>
-  }
+  } }
+  <p
+    class="text-center mt-4 text-sm text-blue-500 underline"
+    (click)="goToCampaignInfo()"
+  >
+    Apa itu kampanye Tamasya Trotoar?
+  </p>
 </div>
+@if(isCampaigning && campaign){
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
