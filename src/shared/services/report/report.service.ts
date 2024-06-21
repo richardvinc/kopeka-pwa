@@ -77,6 +77,10 @@ export class ReportService {
       );
   }
 
+  deleteReport(reportId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/reports/${reportId}`);
+  }
+
   likeReport(reportId: string): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/reports/${reportId}/like`, {});
   }
