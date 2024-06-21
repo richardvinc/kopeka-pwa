@@ -37,7 +37,7 @@ export class ExplorePageComponent {
   ) {
     this.appConfigService.setPageTitle('Utama');
     this.getReportData();
-    this.user = this.userService.userState;
+    this.user = this.userService.getUser();
   }
 
   goToDetail(reportId: string) {

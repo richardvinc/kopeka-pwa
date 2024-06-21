@@ -1,21 +1,14 @@
 import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { ReportService } from '@app/libs/reports/report.service';
+import { User } from '@app/libs/users/interfaces/user.interface';
+import { UserService } from '@app/libs/users/user.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
-import {
-  NotificationService,
-  NotificationType,
-} from '@app/shared/services/notification/notification.service';
+import { LocationService } from '@app/shared/services/location/location.service';
 
 type LatLngWithReportId = google.maps.LatLngLiteral & { reportId: string };
 
@@ -25,7 +18,7 @@ type LatLngWithReportId = google.maps.LatLngLiteral & { reportId: string };
   templateUrl: './map-page.component.html',
   imports: [GoogleMap, MapMarker, CommonModule, MapAdvancedMarker],
 })
-export class MapPageComponent implements AfterViewInit, OnDestroy {
+export class MapPageComponent implements AfterViewInit {
   @ViewChild('mapContainer') mapContainerRef: ElementRef | undefined =
     undefined;
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
@@ -58,6 +51,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
     content: this.pinHtmlElement,
   };
   mapId = environment.googleMapId;
+  user: User | null = null;
 
   reportsNearby: LatLngWithReportId[] = [];
   reportsAroundUser: LatLngWithReportId[] = [];
@@ -65,33 +59,21 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
   constructor(
     private appConfigService: AppConfigService,
     private reportService: ReportService,
-    private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
+    private locationService: LocationService
   ) {
     this.appConfigService.setPageTitle('Peta');
-    this.watchId = navigator.geolocation.watchPosition(
-      (position) => {
-        if (this.isReadyToUpdateUserPosition) {
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          this.updateUserPosition();
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.notificationService.showNotification(
-          err.message,
-          NotificationType.SNACKBAR_ERROR
-        );
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
+    this.user = this.userService.getUser();
+    this.locationService.watchPosition((position) => {
+      if (this.isReadyToUpdateUserPosition) {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        this.updateUserPosition();
       }
-    );
+    });
   }
 
   public onMarkerClick(marker: LatLngWithReportId) {
@@ -169,9 +151,5 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
 
   resetMapLocation() {
     this.center = this.userPosition;
-  }
-
-  ngOnDestroy(): void {
-    if (this.watchId) navigator.geolocation.clearWatch(this.watchId);
   }
 }

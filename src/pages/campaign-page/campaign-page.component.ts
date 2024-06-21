@@ -1,6 +1,7 @@
 import 'moment-duration-format';
 
 import moment from 'moment';
+import { ReportMiniListComponent } from 'src/components/reports/report-mini-list/report-mini-list.component';
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -29,6 +30,7 @@ import {
     FormsModule,
     FromNowPipe,
     CategoryHashtagPipe,
+    ReportMiniListComponent,
   ],
 })
 export class CampaignPageComponent {
@@ -141,7 +143,7 @@ export class CampaignPageComponent {
   }
 
   goToCampaignInfo() {
-    this.router.navigate(['campaign/info']);
+    this.router.navigate(['campaign/onboarding']);
   }
 
   reactToreport(reportId: string) {

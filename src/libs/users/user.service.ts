@@ -22,7 +22,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  get userState(): User | null {
+  getUser(): User | null {
     return this.user;
   }
 

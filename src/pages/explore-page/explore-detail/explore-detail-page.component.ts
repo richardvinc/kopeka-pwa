@@ -1,4 +1,5 @@
 import { catchError, combineLatest, of, switchMap } from 'rxjs';
+import { ReportMiniListComponent } from 'src/components/reports/report-mini-list/report-mini-list.component';
 import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
@@ -23,8 +24,9 @@ import {
     CommonModule,
     GoogleMap,
     MapMarker,
-    CategoryHashtagPipe,
+    ReportMiniListComponent,
     FromNowPipe,
+    CategoryHashtagPipe,
   ],
 })
 export class ExploreDetailPageComponent implements OnInit, OnDestroy {

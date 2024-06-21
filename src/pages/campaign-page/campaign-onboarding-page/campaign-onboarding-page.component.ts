@@ -5,12 +5,12 @@ import { AppConfigService } from '@app/shared/services/config/app/app-config.ser
 import { WalkingTogetherSvgComponent } from './components/walking-together-svg.component';
 
 @Component({
-  selector: 'app-campaign-info-page',
-  templateUrl: './campaign-info-page.component.html',
+  selector: 'app-campaign-onboarding-page',
+  templateUrl: './campaign-onboarding-page.component.html',
   standalone: true,
   imports: [WalkingTogetherSvgComponent],
 })
-export class CampaignInfoPageComponent {
+export class CampaignOnboardingPageComponent {
   constructor(
     private appConfigService: AppConfigService,
     private router: Router

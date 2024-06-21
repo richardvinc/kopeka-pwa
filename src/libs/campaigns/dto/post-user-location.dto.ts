@@ -1,5 +1,5 @@
 export interface PostUserLocationDTO {
-  campaign_shortcode: string;
+  campaign_id: string;
   latitude: number;
   longitude: number;
 }

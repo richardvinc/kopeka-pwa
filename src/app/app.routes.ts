@@ -40,13 +40,6 @@ export const routes: Routes = [
           ).then((m) => m.ExploreDetailPageComponent),
       },
       {
-        path: 'permission',
-        loadComponent: () =>
-          import('../pages/permission-page/permission-page.component').then(
-            (m) => m.PermissionPageComponent
-          ),
-      },
-      {
         path: 'campaign',
         loadComponent: () =>
           import('../pages/campaign-page/campaign-page.component').then(
@@ -54,11 +47,11 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'campaign/info',
+        path: 'campaign/onboarding',
         loadComponent: () =>
           import(
-            '../pages/campaign-page/campaign-info-page/campaign-info-page.component'
-          ).then((m) => m.CampaignInfoPageComponent),
+            '../pages/campaign-page/campaign-onboarding-page/campaign-onboarding-page.component'
+          ).then((m) => m.CampaignOnboardingPageComponent),
       },
       {
         path: 'map',

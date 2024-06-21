@@ -47,7 +47,7 @@ export class ReportFormService {
 
   private sendReportData(dto: CreateReportDTO) {
     console.log('Sending report data');
-    const campaignId = this.userService.userState?.active_campaign_id;
+    const campaignId = this.userService.getUser()?.active_campaign_id;
 
     return this.http.post(`${this.baseUrl}/reports`, {
       latitude: dto.latitude,
