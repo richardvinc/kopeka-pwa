@@ -7,7 +7,7 @@
       class="flex rounded-lg text-sm p-1.5"
       type="button"
     >
-      <span class="sr-only">Open dropdown</span>
+      <span class="sr-only">Buka menu</span>
       <svg
         class="w-5 h-5"
         aria-hidden="true"
@@ -22,7 +22,6 @@
     </button>
     <!-- Dropdown menu -->
     <div
-      id="dropdown"
       [hidden]="!showDropdownMenu"
       class="z-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
     >
@@ -31,7 +30,7 @@
           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           (click)="deleteReport(report.id)"
         >
-          Delete
+          Hapus
         </li>
       </ul>
     </div>

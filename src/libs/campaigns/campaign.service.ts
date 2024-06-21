@@ -37,6 +37,16 @@ export class CampaignService {
       );
   }
 
+  getPastCampaigns(): Observable<Campaign[]> {
+    return this.http
+      .get<BaseResponse<Campaign[]>>(`${this.baseUrl}/campaigns/me/past`)
+      .pipe(
+        map((res) => {
+          return res.data;
+        })
+      );
+  }
+
   getCampaignByShortcode(
     campaignShortcode: string
   ): Observable<Campaign | null> {

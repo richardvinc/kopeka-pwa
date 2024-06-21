@@ -101,12 +101,14 @@ export class CampaignPageComponent {
     if (!answer) return;
 
     if (!this.campaign?.shortcode) return;
+    this.isLoading = true;
     this.campaignService.endCampaign(this.campaign.id).subscribe(() => {
       this.notificationService.showNotification(
         'Kampanye berhasil diakhiri',
         NotificationType.SNACKBAR_SUCCESS
       );
       this.getUserActiveCampaign();
+      this.isLoading = false;
       this.isCampaigning = false;
       this.campaign = null;
     });
@@ -127,6 +129,10 @@ export class CampaignPageComponent {
 
   goToCampaignInfo() {
     this.router.navigate(['campaign/onboarding']);
+  }
+
+  goToPastCampaign() {
+    this.router.navigate(['campaign/past']);
   }
 
   reactToreport(reportId: string) {

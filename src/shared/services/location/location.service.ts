@@ -28,6 +28,13 @@ export class LocationService {
 
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
+        if (
+          this.currentLocation &&
+          position.coords.latitude === this.currentLocation.coords.latitude &&
+          position.coords.longitude === this.currentLocation.coords.longitude
+        )
+          return;
+
         console.log('User position updated: ', position);
         this.currentLocation = position;
         callback(position);

@@ -16,6 +16,7 @@ export class CampaignOnboardingPageComponent {
     private router: Router
   ) {
     this.appConfigService.setPageTitle(`Seputar Tamasya Trotoar`);
+    this.appConfigService.setShowBackButton(true);
   }
 
   goToCampaignPage(): void {

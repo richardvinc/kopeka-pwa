@@ -68,10 +68,14 @@ export class CreateUserPageComponent implements OnInit {
   }
 
   submitForm() {
+    const username: string = this.createUserForm.value.username;
     this.userService
       .createUsername({
-        username: this.createUserForm.value.username,
-        profile_picture_url: 'https://avatar.iran.liara.run/public',
+        username,
+        profile_picture_url: `https://avatar.iran.liara.run/username?username=${username.replace(
+          '_',
+          '+'
+        )}`,
       })
       .subscribe((user) => {
         this.router.navigate(['/onboarding']);

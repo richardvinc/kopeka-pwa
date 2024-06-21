@@ -54,6 +54,13 @@ export const routes: Routes = [
           ).then((m) => m.CampaignOnboardingPageComponent),
       },
       {
+        path: 'campaign/past',
+        loadComponent: () =>
+          import(
+            '../pages/campaign-page/past-campaigns-page/past-campaigns-page.component'
+          ).then((m) => m.PastCampaignsPageComponent),
+      },
+      {
         path: 'map',
         loadComponent: () =>
           import('../pages/map-page/map-page.component').then(

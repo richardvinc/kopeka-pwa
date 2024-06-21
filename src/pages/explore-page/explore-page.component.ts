@@ -13,7 +13,7 @@ import {
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
 
-import { ReportCardItemListComponenet } from './report-card-item-list/report-card-item-list.component';
+import { ReportCardItemListComponenet } from '../../components/reports/report-card-item-list/report-card-item-list.component';
 
 @Component({
   selector: 'app-explore-page',

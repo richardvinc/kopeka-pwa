@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import localeId from '@angular/common/locales/id';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -14,6 +16,8 @@ import { PromptUpdateService } from '@app/shared/services/service-worker/prompt-
 
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
+
+registerLocaleData(localeId);
 
 export const appConfig: ApplicationConfig = {
   providers: [
