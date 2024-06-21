@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '@app/shared/services/user/user.service';
+import { UserService } from '@app/libs/users/user.service';
 
 import { DogWalkingIllustrationComponent } from './components/dog-walking-illustration.component';
 import { WalkingTogetherIllustrationComponent } from './components/walking-together-illustration.component';

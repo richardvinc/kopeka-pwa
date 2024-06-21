@@ -1,5 +1,5 @@
+import { User } from '@app/libs/users/interfaces/user.interface';
 import { BaseResponse } from '@app/shared/interfaces/base-response.interface';
-import { User } from '@app/shared/interfaces/user.interface';
 
 export interface CreateUsernameRequestDTO {
   username: string;

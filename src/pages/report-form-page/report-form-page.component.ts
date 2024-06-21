@@ -10,12 +10,12 @@ import {
 } from '@angular/forms';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
+import { ReportFormService } from '@app/libs/reports/report-form.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { ReportFormService } from '@app/shared/services/report/report-form.service';
 
 @Component({
   selector: 'app-report-form-page',

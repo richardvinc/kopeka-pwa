@@ -3,8 +3,8 @@ import { environment } from 'src/environments/environment';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Campaign } from '@app/libs/campaigns/interfaces/campaign.interface';
 import { BaseResponse } from '@app/shared/interfaces/base-response.interface';
-import { Campaign } from '@app/shared/interfaces/campaign.interface';
 
 import { CreateCampaignDTO } from './dto/create-campaign.dto';
 import { PostUserLocationDTO } from './dto/post-user-location.dto';

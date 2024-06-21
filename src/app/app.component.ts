@@ -8,7 +8,7 @@ import {
   SnackBarMessage,
 } from '@app/shared/services/notification/notification.service';
 
-import { ContainerComponent } from '../shared/components/container/container.component';
+import { ContainerComponent } from '../components/container/container.component';
 
 @Component({
   selector: 'app-root',

@@ -3,10 +3,10 @@ import { environment } from 'src/environments/environment';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '@app/shared/interfaces/user.interface';
-import { AuthService } from '@app/shared/services/auth/auth.service';
+import { AuthService } from '@app/libs/auth/auth.service';
+import { User } from '@app/libs/users/interfaces/user.interface';
+import { UserService } from '@app/libs/users/user.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
-import { UserService } from '@app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-profile-page',

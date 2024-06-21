@@ -3,11 +3,11 @@ import { environment } from 'src/environments/environment';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Report } from '@app/libs/reports/interfaces/report.interface';
 import {
   BaseResponse,
   BaseResponsePagination,
 } from '@app/shared/interfaces/base-response.interface';
-import { Report } from '@app/shared/interfaces/report.interface';
 
 import { GetLatestReportDTO } from './dto/get-latest-report.dto';
 import { GetNearbyReportsDTO } from './dto/get-nearby-report.dto';

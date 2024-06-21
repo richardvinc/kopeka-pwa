@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GPSLocation } from '@app/shared/interfaces/gps-location.interface';
 
-import { UserService } from '../user/user.service';
+import { UserService } from '../users/user.service';
 import { CreateReportDTO } from './dto/create-report.dto';
 
 interface SasUrlResponseDTO {

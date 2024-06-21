@@ -6,7 +6,7 @@ import {
   AsyncValidator,
   ValidationErrors,
 } from '@angular/forms';
-import { UserService } from '@app/shared/services/user/user.service';
+import { UserService } from '@app/libs/users/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class UniqueUsernameValidator implements AsyncValidator {

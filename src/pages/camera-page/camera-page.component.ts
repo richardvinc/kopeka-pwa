@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReportFormService } from '@app/shared/services/report/report-form.service';
+import { ReportFormService } from '@app/libs/reports/report-form.service';
 
 @Component({
   selector: 'app-camera-page',

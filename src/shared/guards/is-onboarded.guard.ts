@@ -3,7 +3,7 @@ import { map } from 'rxjs';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
-import { UserService } from '../services/user/user.service';
+import { UserService } from '../../libs/users/user.service';
 
 export const IsOnboarded: CanActivateFn = () => {
   const userService = inject(UserService);

@@ -6,8 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '@app/libs/auth/auth.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

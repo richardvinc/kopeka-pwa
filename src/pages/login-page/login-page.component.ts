@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '@app/shared/services/auth/auth.service';
+import { AuthService } from '@app/libs/auth/auth.service';
 
 import { WelcomeLoginSvgComponent } from './components/welcome-login-svg.component';
 

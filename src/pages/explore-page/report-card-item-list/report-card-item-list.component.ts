@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Report } from '@app/shared/interfaces/report.interface';
+import { Report } from '@app/libs/reports/interfaces/report.interface';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 

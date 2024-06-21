@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '@app/libs/users/user.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { UserService } from '@app/shared/services/user/user.service';
 
 import { AdvocationSvgComponent } from './components/advocation-svg.component';
 import { PermissionSvgComponent } from './components/permission-svg.component';

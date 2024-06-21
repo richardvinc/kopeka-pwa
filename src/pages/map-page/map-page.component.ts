@@ -10,12 +10,12 @@ import {
 } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
+import { ReportService } from '@app/libs/reports/report.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { ReportService } from '@app/shared/services/report/report.service';
 
 type LatLngWithReportId = google.maps.LatLngLiteral & { reportId: string };
 

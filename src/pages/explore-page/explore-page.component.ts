@@ -3,15 +3,15 @@ import { catchError } from 'rxjs';
 
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Report } from '@app/shared/interfaces/report.interface';
-import { User } from '@app/shared/interfaces/user.interface';
+import { Report } from '@app/libs/reports/interfaces/report.interface';
+import { ReportService } from '@app/libs/reports/report.service';
+import { User } from '@app/libs/users/interfaces/user.interface';
+import { UserService } from '@app/libs/users/user.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { ReportService } from '@app/shared/services/report/report.service';
-import { UserService } from '@app/shared/services/user/user.service';
 
 import { ReportCardItemListComponenet } from './report-card-item-list/report-card-item-list.component';
 

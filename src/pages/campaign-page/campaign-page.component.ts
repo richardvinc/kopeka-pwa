@@ -6,18 +6,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Campaign } from '@app/shared/interfaces/campaign.interface';
-import { Report } from '@app/shared/interfaces/report.interface';
+import { CampaignService } from '@app/libs/campaigns/campaign.service';
+import { Campaign } from '@app/libs/campaigns/interfaces/campaign.interface';
+import { Report } from '@app/libs/reports/interfaces/report.interface';
+import { ReportService } from '@app/libs/reports/report.service';
+import { UserService } from '@app/libs/users/user.service';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
-import { CampaignService } from '@app/shared/services/campaign/campaign.service';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { ReportService } from '@app/shared/services/report/report.service';
-import { UserService } from '@app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-campaign-page',

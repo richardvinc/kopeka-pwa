@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Report } from '@app/shared/interfaces/report.interface';
+import { Report } from '@app/libs/reports/interfaces/report.interface';
+import { ReportService } from '@app/libs/reports/report.service';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
@@ -13,7 +14,6 @@ import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
-import { ReportService } from '@app/shared/services/report/report.service';
 
 @Component({
   selector: 'app-explore-detail-page',
