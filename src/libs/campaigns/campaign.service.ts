@@ -65,6 +65,10 @@ export class CampaignService {
     );
   }
 
+  endCampaign(campaignId: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/campaigns/id/${campaignId}/end`, {});
+  }
+
   postUserLocation(dto: PostUserLocationDTO): void {
     this.http
       .post(`${this.baseUrl}/campaigns/journey/location`, dto)

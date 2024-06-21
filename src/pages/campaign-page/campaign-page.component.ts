@@ -15,6 +15,7 @@ import { UserService } from '@app/libs/users/user.service';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
+import { LocationService } from '@app/shared/services/location/location.service';
 import {
   NotificationService,
   NotificationType,
@@ -50,7 +51,8 @@ export class CampaignPageComponent {
     private reportService: ReportService,
     private campaignService: CampaignService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private locationService: LocationService
   ) {
     this.appConfigService.setPageTitle(`Tamasya Trotoar`);
     this.getUserActiveCampaign();
@@ -59,6 +61,11 @@ export class CampaignPageComponent {
   createCampaign(): void {
     this.isLoading = true;
     this.campaignService.createCampaign({}).subscribe((campaign) => {
+      this.notificationService.showNotification(
+        'Kampanye berhasil dibuat. Ayo bagikan kode kampanye ke temanmu yang lain!',
+        NotificationType.SNACKBAR_SUCCESS
+      );
+      this.startPostingUserLocation();
       this.getUserActiveCampaign();
     });
   }
@@ -67,6 +74,7 @@ export class CampaignPageComponent {
     if (this.campaignCode.length !== 6) return;
     this.isLoading = true;
     this.campaignService.joinCampaign(this.campaignCode).subscribe(() => {
+      this.startPostingUserLocation();
       this.getUserActiveCampaign();
     });
   }
@@ -79,8 +87,29 @@ export class CampaignPageComponent {
     this.campaignService
       .leaveCampaign(this.campaign.shortcode)
       .subscribe(() => {
+        this.stopPostingUserLocation();
+        this.notificationService.showNotification(
+          'Berhasil keluar kampanye',
+          NotificationType.SNACKBAR_SUCCESS
+        );
         this.getUserActiveCampaign();
       });
+  }
+
+  endCampaign(): void {
+    const answer = confirm('Apakah Anda yakin ingin mengakhiri kampanye ini?');
+    if (!answer) return;
+
+    if (!this.campaign?.shortcode) return;
+    this.campaignService.endCampaign(this.campaign.id).subscribe(() => {
+      this.notificationService.showNotification(
+        'Kampanye berhasil diakhiri',
+        NotificationType.SNACKBAR_SUCCESS
+      );
+      this.getUserActiveCampaign();
+      this.isCampaigning = false;
+      this.campaign = null;
+    });
   }
 
   copyCampaignCode(): void {
@@ -90,6 +119,31 @@ export class CampaignPageComponent {
       `Kode kampanye ${this.campaign?.shortcode} berhasil disalin`,
       NotificationType.SNACKBAR_SUCCESS
     );
+  }
+
+  goToReportDetail(reportId: string) {
+    this.router.navigate(['explore/detail', reportId]);
+  }
+
+  goToCampaignInfo() {
+    this.router.navigate(['campaign/onboarding']);
+  }
+
+  reactToreport(reportId: string) {
+    const report = this.campaignReports.find(
+      (report) => report.id === reportId
+    );
+    if (report) {
+      report.is_reacted = !report.is_reacted;
+
+      if (report.is_reacted) {
+        this.reportService.likeReport(report.id).subscribe();
+        report.total_reaction += 1;
+      } else {
+        this.reportService.unlikeReport(report.id).subscribe();
+        report.total_reaction -= 1;
+      }
+    }
   }
 
   private getUserActiveCampaign() {
@@ -138,29 +192,13 @@ export class CampaignPageComponent {
     });
   }
 
-  goToReportDetail(reportId: string) {
-    this.router.navigate(['explore/detail', reportId]);
+  private startPostingUserLocation() {
+    if (this.campaign)
+      this.locationService.startPostingUserLocation(this.campaign.id);
   }
 
-  goToCampaignInfo() {
-    this.router.navigate(['campaign/onboarding']);
-  }
-
-  reactToreport(reportId: string) {
-    const report = this.campaignReports.find(
-      (report) => report.id === reportId
-    );
-    if (report) {
-      report.is_reacted = !report.is_reacted;
-
-      if (report.is_reacted) {
-        this.reportService.likeReport(report.id).subscribe();
-        report.total_reaction += 1;
-      } else {
-        this.reportService.unlikeReport(report.id).subscribe();
-        report.total_reaction -= 1;
-      }
-    }
+  private stopPostingUserLocation() {
+    this.locationService.stopPostingUserLocation();
   }
 
   private convertDateToHumanReadableDuration(date: Date): string {

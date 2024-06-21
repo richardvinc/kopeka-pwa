@@ -45,7 +45,6 @@ export class ExplorePageComponent {
   }
 
   reactToReport(param: { reportId: string; isReacted: boolean }) {
-    console.log('Reacted to report with id:', param.reportId);
     if (param.isReacted) {
       this.reportService.likeReport(param.reportId).subscribe();
     } else {
@@ -75,7 +74,6 @@ export class ExplorePageComponent {
   }
 
   onScrolled() {
-    console.log('scrolled to the bottom!');
     if (this.isGettingData) {
       return;
     }
@@ -98,7 +96,6 @@ export class ExplorePageComponent {
       .subscribe({
         next: (res) => {
           if (res.reports.length === 0 && !res.nextToken) {
-            console.log('All data loaded');
             this.isAllDataLoaded = true;
             return;
           }
