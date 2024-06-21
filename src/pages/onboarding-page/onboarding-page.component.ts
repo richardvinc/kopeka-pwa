@@ -63,7 +63,13 @@ export class OnboardingPageComponent {
   }
 
   denyPermission() {
-    alert('You denied the permission');
+    const answer = confirm(
+      `Apakah kamu yakin? Kamu tidak dapat menggunakan aplikasi ini tanpa akses kamera dan lokasi dan
+      kamu akan diarahkan ke halaman login awal. Kamu tetap bisa melihat laporan di peta.kopeka.id`
+    );
+    if (answer) {
+      this.router.navigate(['/logout']);
+    }
   }
 
   private requestLocationPermission() {

@@ -9,8 +9,10 @@
   @for (report of reports; track $index) {
   <app-report-card-item-list
     [report]="report"
+    [userId]="user!.id"
     (clicked)="goToDetail($event)"
     (reacted)="reactToReport($event)"
+    (deleted)="deleteReport($event)"
   ></app-report-card-item-list>
   }
 </div>

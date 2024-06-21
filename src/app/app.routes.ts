@@ -53,6 +53,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'campaign/info',
+        loadComponent: () =>
+          import(
+            '../pages/campaign-page/campaign-info-page/campaign-info-page.component'
+          ).then((m) => m.CampaignInfoPageComponent),
+      },
+      {
         path: 'map',
         loadComponent: () =>
           import('../pages/map-page/map-page.component').then(
@@ -134,6 +141,13 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo(['explore']) },
+  },
+  {
+    path: 'logout',
+    loadComponent: () =>
+      import('../pages/logout-page/logout-page.component').then(
+        (m) => m.LogoutPageComponent
+      ),
   },
   {
     path: '**',

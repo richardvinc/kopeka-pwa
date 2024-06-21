@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GPSLocation } from '@app/shared/interfaces/gps-location.interface';
 
+import { UserService } from '../user/user.service';
 import { CreateReportDTO } from './dto/create-report.dto';
 
 interface SasUrlResponseDTO {
@@ -27,7 +28,7 @@ export class ReportFormService {
   private baseUrl = environment.baseUrl;
   private _imageData = new BehaviorSubject<string | undefined>(undefined);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   $imageData() {
     return this._imageData.asObservable();
@@ -46,12 +47,15 @@ export class ReportFormService {
 
   private sendReportData(dto: CreateReportDTO) {
     console.log('Sending report data');
+    const campaignId = this.userService.userState?.active_campaign_id;
+
     return this.http.post(`${this.baseUrl}/reports`, {
       latitude: dto.latitude,
       longitude: dto.longitude,
       image_url: dto.image_url,
       category: dto.category,
       condition: dto.condition,
+      campaign_id: campaignId,
     });
   }
 

@@ -109,7 +109,7 @@
             (click)="goToReportDetail(nearbyReport.id)"
           >
             <p class="text-xs text-gray-400 truncate">
-              {{ nearbyReport.created_at | date : "mediumDate" }}
+              {{ nearbyReport.created_at | fromNow }}
             </p>
             <p class="text-sm font-medium text-gray-900 truncate">
               {{ nearbyReport.category | categoryHashtag }} dalam kondisi

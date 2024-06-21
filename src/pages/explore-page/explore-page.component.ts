@@ -4,12 +4,14 @@ import { catchError } from 'rxjs';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Report } from '@app/shared/interfaces/report.interface';
+import { User } from '@app/shared/interfaces/user.interface';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
 import {
   NotificationService,
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
 import { ReportService } from '@app/shared/services/report/report.service';
+import { UserService } from '@app/shared/services/user/user.service';
 
 import { ReportCardItemListComponenet } from './report-card-item-list/report-card-item-list.component';
 
@@ -24,15 +26,18 @@ export class ExplorePageComponent {
   nextToken: string | null = null;
   isGettingData = false;
   isAllDataLoaded = false;
+  user: User | null = null;
 
   constructor(
     private appConfigService: AppConfigService,
     private reportService: ReportService,
     private router: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userService: UserService
   ) {
     this.appConfigService.setPageTitle('Utama');
     this.getReportData();
+    this.user = this.userService.userState;
   }
 
   goToDetail(reportId: string) {
@@ -46,6 +51,27 @@ export class ExplorePageComponent {
     } else {
       this.reportService.unlikeReport(param.reportId).subscribe();
     }
+  }
+
+  deleteReport(reportId: string) {
+    console.log('Deleted report with id:', reportId);
+    this.reportService.deleteReport(reportId).subscribe({
+      next: () => {
+        this.reports = this.reports.filter((report) => report.id !== reportId);
+        this.notificationService.showNotification(
+          'Laporan terhapus',
+          NotificationType.SNACKBAR_SUCCESS
+        );
+        if (this.reports.length < 5) this.getReportData();
+      },
+      error: (error) => {
+        console.error(error);
+        this.notificationService.showNotification(
+          'Gagal menghapus laporan.',
+          NotificationType.SNACKBAR_ERROR
+        );
+      },
+    });
   }
 
   onScrolled() {

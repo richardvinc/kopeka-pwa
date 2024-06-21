@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class FromNowPipe implements PipeTransform {
-  transform(value: string): string {
+  transform(value: string | number): string {
     moment.locale('id');
     return moment(value).fromNow();
   }

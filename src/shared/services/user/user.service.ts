@@ -18,12 +18,18 @@ import { UpdateUserRequestDTO } from './dto/update-user.dto';
 })
 export class UserService {
   private baseUrl = environment.baseUrl;
+  private user: User | null = null;
 
   constructor(private http: HttpClient) {}
+
+  get userState(): User | null {
+    return this.user;
+  }
 
   getSelf(): Observable<User | null> {
     return this.http.get<BaseResponse<User>>(`${this.baseUrl}/users/self`).pipe(
       map((res) => {
+        this.user = res.data;
         return res.data;
       })
     );

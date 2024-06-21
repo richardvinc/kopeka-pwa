@@ -4,4 +4,5 @@ export interface CreateReportDTO {
   image_url: string;
   category: string;
   condition: string;
+  campaign_id?: string;
 }

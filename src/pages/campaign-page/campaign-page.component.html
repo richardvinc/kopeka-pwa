@@ -1,5 +1,178 @@
+@if(isLoading) {
 <div
   class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
 >
-  <p class="text-center">Fitur ini akan segera dikembangkan!</p>
+  <div>memuat data...</div>
 </div>
+} @else {
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+>
+  @if (!isCampaigning) {
+  <p class="mb-2">
+    Ajak teman-temanmu untuk berjalan bersama dan simpan rute perjalananmu
+    dengan <strong>kampanye Tamasya Trotoar</strong>!
+  </p>
+  <button
+    class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded"
+    (click)="createCampaign()"
+  >
+    Buat Kampanye Baru
+  </button>
+  <p class="mt-4 mb-2">Punya kode kampanye?</p>
+  <input
+    type="text"
+    class="w-full mb-2 text-xl border border-gray-300 p-2 rounded-lg uppercase"
+    placeholder="Masukkan kode kampanye"
+    [(ngModel)]="campaignCode"
+  />
+  <button
+    class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded disabled:opacity-40"
+    [disabled]="this.campaignCode.length !== 6"
+    (click)="joinCampaign()"
+  >
+    Gabung Kampanye
+  </button>
+  } @else if(isCampaigning && campaign) {
+  <p class="mb-2">Saat ini kamu sedang tergabung dengan kampanye dengan kode</p>
+  <input
+    type="text"
+    class="w-full mb-4 text-xl border border-gray-300 p-2 rounded-lg uppercase"
+    [value]="campaign.shortcode"
+    disabled
+  />
+  <button
+    class="w-full mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-sm rounded"
+    (click)="copyCampaignCode()"
+  >
+    Salin Kode Kampanye
+  </button>
+  @if(campaign.created_by.id !== userId) {
+  <button
+    class="w-full bg-slate-100 text-slate-400 font-bold p-2 text-sm rounded"
+    (click)="leaveCampaign()"
+  >
+    Keluar dari Kampanye
+  </button>
+  } }
+  <p
+    class="text-center mt-4 text-sm text-blue-500 underline"
+    (click)="goToCampaignInfo()"
+  >
+    Apa itu kampanye Tamasya Trotoar?
+  </p>
+</div>
+<!-- body -->
+@if(isCampaigning && campaign){
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 p-4"
+>
+  <div class="flex flex-row items-center mb-2">
+    <p class="flex flex-1 text-lg font-bold mb-2">Seputar Kampanye</p>
+    <p
+      class="flex flex-shrink px-2 py-1 rounded-full text-xs font-bold"
+      [ngClass]="{
+        'bg-green-100 text-green-800': !isCampaignExpired,
+        'bg-red-100 text-red-800': isCampaignExpired
+      }"
+    >
+      @if (isCampaignExpired) { Kampanye berakhir } @else { Kampanye berlangsung
+      }
+    </p>
+  </div>
+  <div class="flex justify-center items-center mb-2">
+    <div
+      class="flex flex-1 flex-col justify-center items-center bg-slate-100 rounded-lg p-4 mb-2"
+    >
+      <p class="text-lg">
+        @if (isCampaignExpired) { Durasi kampanye } @else { Kampanye berlangsung
+        }
+      </p>
+      <p class="font-extrabold text-2xl">{{ campaignRunningTime }}</p>
+      @if (!isCampaignExpired) {
+      <p class="text-xs py-2">Berakhir dalam {{ campaignToEndTime }}</p>
+      }
+    </div>
+  </div>
+  <div class="flex flex-row gap-2 justify-center items-center">
+    <div
+      class="flex flex-1 flex-col justify-center items-center border-solid border-2 rounded-lg p-4 mb-2"
+    >
+      <p class="text-lg">Total Peserta</p>
+      <p class="font-extrabold">{{ campaign.total_campaigners }}</p>
+    </div>
+    <div
+      class="flex flex-1 flex-col justify-center items-center border-solid border-2 rounded-lg p-4 mb-2"
+    >
+      <p class="text-lg">Total Laporan</p>
+      <p class="font-extrabold">{{ campaign.total_reports }}</p>
+    </div>
+  </div>
+
+  @if (!isCampaignExpired) {
+  <p class="mt-4 text-xs">
+    Data di atas adalah estimasi. Data akurat akan tersedia setelah kampanye
+    berakhir.
+  </p>
+  }
+</div>
+<div
+  class="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg mb-4 px-4 pt-4"
+>
+  <div class="mb-2">
+    <p class="text-lg font-bold mb-2">Laporan Terakhir dalam Kampanye Ini</p>
+  </div>
+  @if (campaignReports.length > 0) {
+  <ul role="list" class="divide-y divide-gray-200">
+    @for (report of campaignReports; track report.id) {
+    <li class="py-3">
+      <div class="flex items-center content-center">
+        <div class="flex-shrink-0" (click)="goToReportDetail(report.id)">
+          <img class="w-8 h-8 rounded-sm" [src]="report.image_url" alt="" />
+        </div>
+        <div class="flex-1 min-w-0 ms-4" (click)="goToReportDetail(report.id)">
+          <p class="text-xs text-gray-400 truncate">
+            {{ report.created_at | fromNow }}
+          </p>
+          <p class="text-sm font-medium text-gray-900 truncate">
+            {{ report.category | categoryHashtag }} dalam kondisi
+            {{ report.condition === "GOOD" ? "baik" : "buruk" }}
+          </p>
+        </div>
+        <div
+          class="inline-flex items-center text-base font-semibold text-gray-900"
+          (click)="reactToreport(report.id)"
+        >
+          <span>{{ report.total_reaction }}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+            [ngClass]="{ 'fill-red-400': report.is_reacted }"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </li>
+    }
+  </ul>
+  } @else {
+  <p class="text-sm text-gray-400 pb-4">
+    Belum ada laporan dalam kampanye ini.
+  </p>
+  }
+</div>
+} }

@@ -1,8 +1,9 @@
 export interface User {
-  id: number;
+  id: string;
   username?: string;
   profile_picture_url: string;
   is_onboarded: boolean;
-  createdAt: Date;
-  updatedAt?: Date;
+  active_campaign_id?: string;
+  createdAt: number;
+  updatedAt?: number;
 }
