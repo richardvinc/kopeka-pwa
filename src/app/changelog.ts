@@ -1,5 +1,12 @@
 const appChangelog = [
   {
+    version: '1.2.3',
+    changes: [
+      'Penambahan fitur lihat tamasya trotoar yang pernah diikuti',
+      'Fitur unduh gambar rute perjalanan selama kampanye',
+    ],
+  },
+  {
     version: '1.2.2',
     changes: ['Penambahan fitur hapus laporan'],
   },
