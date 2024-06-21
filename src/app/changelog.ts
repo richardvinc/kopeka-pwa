@@ -1,5 +1,8 @@
-const appVersion = '1.2.1';
 const appChangelog = [
+  {
+    version: '1.2.2',
+    changes: ['Penambahan fitur hapus laporan'],
+  },
   {
     version: '1.2.1',
     changes: [
@@ -29,6 +32,6 @@ const appChangelog = [
 ];
 
 export const app = {
-  version: appVersion,
+  version: appChangelog[0].version,
   changelog: appChangelog,
 };
