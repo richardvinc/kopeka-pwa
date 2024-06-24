@@ -4,19 +4,24 @@ import { Report } from '@app/libs/reports/interfaces/report.interface';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 
+import { ReportInfoCardComponent } from '../report-info-card/report-info-card.component';
+
 @Component({
   selector: 'app-report-card-item-list',
   standalone: true,
   templateUrl: './report-card-item-list.component.html',
-  imports: [CommonModule, CategoryHashtagPipe, FromNowPipe],
+  imports: [
+    CommonModule,
+    CategoryHashtagPipe,
+    FromNowPipe,
+    ReportInfoCardComponent,
+  ],
 })
 export class ReportCardItemListComponenet {
   @Output() clicked = new EventEmitter<string>();
   @Output() deleted = new EventEmitter<string>();
-  @Output() reacted = new EventEmitter<{
-    reportId: string;
-    isReacted: boolean;
-  }>();
+  @Output() liked = new EventEmitter<string>();
+  @Output() unliked = new EventEmitter<string>();
   @Input({ required: true }) report!: Report;
   @Input({ required: true }) userId!: string;
 
@@ -31,8 +36,15 @@ export class ReportCardItemListComponenet {
     this.showDropdownMenu = false;
   }
 
-  reactToReport(reportId: string) {
-    this.report.is_reacted = !this.report.is_reacted;
-    this.reacted.emit({ reportId, isReacted: this.report.is_reacted });
+  likeReport(reportId: string) {
+    this.report.is_reacted = true;
+    this.report.total_reaction += 1;
+    this.liked.emit(reportId);
+  }
+
+  unlikeReport(reportId: string) {
+    this.report.is_reacted = false;
+    this.report.total_reaction -= 1;
+    this.unliked.emit(reportId);
   }
 }

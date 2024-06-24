@@ -1,4 +1,5 @@
 import { catchError, combineLatest, of, switchMap } from 'rxjs';
+import { ReportInfoCardComponent } from 'src/components/reports/report-info-card/report-info-card.component';
 import { ReportMiniListComponent } from 'src/components/reports/report-mini-list/report-mini-list.component';
 import { environment } from 'src/environments/environment';
 
@@ -8,6 +9,7 @@ import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Report } from '@app/libs/reports/interfaces/report.interface';
 import { ReportService } from '@app/libs/reports/report.service';
+import { UserService } from '@app/libs/users/user.service';
 import { CategoryHashtagPipe } from '@app/shared/pipes/category-hashtag.pipe';
 import { FromNowPipe } from '@app/shared/pipes/date-from-now.pipe';
 import { AppConfigService } from '@app/shared/services/config/app/app-config.service';
@@ -27,11 +29,13 @@ import {
     ReportMiniListComponent,
     FromNowPipe,
     CategoryHashtagPipe,
+    ReportInfoCardComponent,
   ],
 })
 export class ExploreDetailPageComponent implements OnInit, OnDestroy {
   isLoading = false;
   report: Report | null = null;
+  userId: string = this.userService.getUser()?.id ?? '';
   nearbyReports: Report[] = [];
 
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
@@ -54,7 +58,8 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private reportService: ReportService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userService: UserService
   ) {
     this.appConfigService.setPageTitle('Report Detail');
     this.appConfigService.setShowBackButton(true);
@@ -69,21 +74,25 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
     return this.reportService.getReportDetail(reportId);
   }
 
-  reactToReport() {
+  likeReport() {
     if (this.report) {
-      this.report.is_reacted = !this.report.is_reacted;
+      this.report.is_reacted = true;
 
-      if (this.report.is_reacted) {
-        this.reportService.likeReport(this.report.id).subscribe();
-        this.report.total_reaction += 1;
-      } else {
-        this.reportService.unlikeReport(this.report.id).subscribe();
-        this.report.total_reaction -= 1;
-      }
+      this.reportService.likeReport(this.report.id).subscribe();
+      this.report.total_reaction += 1;
     }
   }
 
-  reactToNearbyReport(reportId: string) {
+  unlikeReport() {
+    if (this.report) {
+      this.report.is_reacted = false;
+
+      this.reportService.unlikeReport(this.report.id).subscribe();
+      this.report.total_reaction -= 1;
+    }
+  }
+
+  reactToNearbyReport(reportId: string, isLiked: boolean) {
     if (this.nearbyReports.length > 0) {
       const nearbyReport = this.nearbyReports.find(
         (report) => report.id === reportId
@@ -91,12 +100,12 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
       if (!nearbyReport) {
         return;
       }
-      nearbyReport.is_reacted = !nearbyReport.is_reacted;
-
-      if (nearbyReport.is_reacted) {
+      if (isLiked) {
+        nearbyReport.is_reacted = true;
         this.reportService.likeReport(nearbyReport.id).subscribe();
         nearbyReport.total_reaction += 1;
       } else {
+        nearbyReport.is_reacted = false;
         this.reportService.unlikeReport(nearbyReport.id).subscribe();
         nearbyReport.total_reaction -= 1;
       }

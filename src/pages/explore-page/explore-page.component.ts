@@ -44,12 +44,12 @@ export class ExplorePageComponent {
     this.router.navigate(['/explore/detail', reportId]);
   }
 
-  reactToReport(param: { reportId: string; isReacted: boolean }) {
-    if (param.isReacted) {
-      this.reportService.likeReport(param.reportId).subscribe();
-    } else {
-      this.reportService.unlikeReport(param.reportId).subscribe();
-    }
+  likeReport(reportId: string) {
+    this.reportService.likeReport(reportId).subscribe();
+  }
+
+  unlikeReport(reportId: string) {
+    this.reportService.unlikeReport(reportId).subscribe();
   }
 
   deleteReport(reportId: string) {

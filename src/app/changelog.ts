@@ -1,5 +1,9 @@
 const appChangelog = [
   {
+    version: '1.2.4',
+    changes: ['Perbaikan fitur like/unlike laporan'],
+  },
+  {
     version: '1.2.3',
     changes: [
       'Penambahan fitur lihat tamasya trotoar yang pernah diikuti',

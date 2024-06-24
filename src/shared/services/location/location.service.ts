@@ -51,8 +51,8 @@ export class LocationService {
       },
       {
         enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 5000,
+        timeout: 30000,
+        maximumAge: 15000,
       }
     );
   }

@@ -11,7 +11,8 @@
     [report]="report"
     [userId]="user!.id"
     (clicked)="goToDetail($event)"
-    (reacted)="reactToReport($event)"
+    (liked)="likeReport($event)"
+    (unliked)="unlikeReport($event)"
     (deleted)="deleteReport($event)"
   ></app-report-card-item-list>
   }
