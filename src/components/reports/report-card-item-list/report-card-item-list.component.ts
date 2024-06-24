@@ -44,7 +44,9 @@ export class ReportCardItemListComponenet {
 
   unlikeReport(reportId: string) {
     this.report.is_reacted = false;
-    this.report.total_reaction -= 1;
-    this.unliked.emit(reportId);
+    if (this.report.total_reaction > 0) {
+      this.report.total_reaction -= 1;
+      this.unliked.emit(reportId);
+    }
   }
 }

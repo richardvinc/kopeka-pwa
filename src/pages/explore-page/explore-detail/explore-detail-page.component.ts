@@ -86,9 +86,10 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
   unlikeReport() {
     if (this.report) {
       this.report.is_reacted = false;
-
-      this.reportService.unlikeReport(this.report.id).subscribe();
-      this.report.total_reaction -= 1;
+      if (this.report.total_reaction > 0) {
+        this.reportService.unlikeReport(this.report.id).subscribe();
+        this.report.total_reaction -= 1;
+      }
     }
   }
 
@@ -101,13 +102,15 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
         return;
       }
       if (isLiked) {
+        nearbyReport.is_reacted = false;
+        if (nearbyReport.total_reaction > 0) {
+          this.reportService.unlikeReport(nearbyReport.id).subscribe();
+          nearbyReport.total_reaction -= 1;
+        }
+      } else {
         nearbyReport.is_reacted = true;
         this.reportService.likeReport(nearbyReport.id).subscribe();
         nearbyReport.total_reaction += 1;
-      } else {
-        nearbyReport.is_reacted = false;
-        this.reportService.unlikeReport(nearbyReport.id).subscribe();
-        nearbyReport.total_reaction -= 1;
       }
     }
   }
