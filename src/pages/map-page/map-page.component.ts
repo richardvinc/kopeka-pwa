@@ -82,7 +82,6 @@ export class MapPageComponent implements AfterViewInit {
   }
 
   private updateUserPosition() {
-    console.log('User position updated: ', this.center);
     if (this.userPosition === this.center) return;
     this.userPosition = this.center;
     this.reportsAroundUser = this.getNearbyReports(this.userPosition);

@@ -49,14 +49,14 @@
   </button>
   @if(campaign.created_by.id !== userId) {
   <button
-    class="w-full bg-slate-100 text-slate-400 font-bold p-2 text-sm rounded"
+    class="w-full text-slate-600 font-bold p-2 text-sm rounded"
     (click)="leaveCampaign()"
   >
     Keluar dari Kampanye
   </button>
   } @else {
   <button
-    class="w-full bg-slate-100 text-slate-400 font-bold p-2 text-sm rounded"
+    class="w-full text-slate-600 font-bold p-2 text-sm rounded"
     (click)="endCampaign()"
   >
     Akhiri Kampanye

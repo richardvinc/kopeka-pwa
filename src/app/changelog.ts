@@ -1,5 +1,12 @@
 const appChangelog = [
   {
+    version: '1.2.6',
+    changes: [
+      'Perbaikan bug like tidak tersimpan',
+      'Perbaikan bug lokasi tidak terdeteksi',
+    ],
+  },
+  {
     version: '1.2.5',
     changes: [
       'Penambahan keterangan pada kampanye',
