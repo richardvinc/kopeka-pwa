@@ -24,7 +24,7 @@ export class LocationService {
   }
 
   watchPosition(callback: (position: GeolocationPosition) => void) {
-    if (this.watchId) this.clearWatch();
+    if (!this.watchId) this.clearWatch();
 
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
@@ -36,11 +36,16 @@ export class LocationService {
           return;
 
         console.log('User position updated: ', position);
-        this.currentLocation = position;
         callback(position);
         if (this.campaignId) {
+          if (
+            this.currentLocation &&
+            position.coords == this.currentLocation.coords
+          )
+            return;
           this.postUserCampaignLocation(position, this.campaignId);
         }
+        this.currentLocation = position;
       },
       (err) => {
         console.log(err);
