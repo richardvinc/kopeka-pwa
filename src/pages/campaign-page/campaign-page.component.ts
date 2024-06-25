@@ -59,15 +59,20 @@ export class CampaignPageComponent {
   }
 
   createCampaign(): void {
+    const campaignDescription = prompt('Kampanye apa yang ingin kamu buat?');
     this.isLoading = true;
-    this.campaignService.createCampaign({}).subscribe((campaign) => {
-      this.notificationService.showNotification(
-        'Kampanye berhasil dibuat. Ayo bagikan kode kampanye ke temanmu yang lain!',
-        NotificationType.SNACKBAR_SUCCESS
-      );
-      this.startPostingUserLocation();
-      this.getUserActiveCampaign();
-    });
+    this.campaignService
+      .createCampaign({
+        description: campaignDescription ?? '',
+      })
+      .subscribe((campaign) => {
+        this.notificationService.showNotification(
+          'Kampanye berhasil dibuat. Ayo bagikan kode kampanye ke temanmu yang lain!',
+          NotificationType.SNACKBAR_SUCCESS
+        );
+        this.startPostingUserLocation();
+        this.getUserActiveCampaign();
+      });
   }
 
   joinCampaign(): void {

@@ -61,6 +61,9 @@
       <p class="flex">{{ campaign.total_reports }} laporan</p>
     </div>
     <p class="text-gray-700 text-lg">#{{ campaign.shortcode }}</p>
+    @if (campaign.description) {
+    <p class="text-gray-600 text-base">{{ campaign.description }}</p>
+    }
     <p class="text-gray-500 text-base">
       Dimulai:
       {{ campaign.created_at | date : "dd MMMM HH:mm" : undefined : "id-Id" }}

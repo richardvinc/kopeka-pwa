@@ -1,6 +1,7 @@
 export interface Campaign {
   id: string;
   shortcode: string;
+  description?: string;
   image_url?: string;
   created_by: {
     id: string;

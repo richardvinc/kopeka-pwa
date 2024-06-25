@@ -1,5 +1,12 @@
 const appChangelog = [
   {
+    version: '1.2.5',
+    changes: [
+      'Penambahan keterangan pada kampanye',
+      'Perbaikan bahasa pada halaman onboarding kampanye',
+    ],
+  },
+  {
     version: '1.2.4',
     changes: ['Perbaikan fitur like/unlike laporan'],
   },
