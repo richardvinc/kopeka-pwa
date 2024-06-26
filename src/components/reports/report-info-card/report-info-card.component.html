@@ -6,6 +6,7 @@
   </div>
   <p class="text-gray-700 text-lg">
     {{ report.category | categoryHashtag }}
+    @if(report.category_remark) { ({{ report.category_remark }}) }
     <span
       class="ml-1 px-2 py-1 rounded-full text-xs font-bold"
       [ngClass]="{
@@ -21,6 +22,24 @@
       report.reported_by.id === userId ? "kamu" : report.reported_by.username
     }}
   </p>
+  @if(showSubCategories) {
+  <div class="flex flex-wrap gap-1 text-gray-700 text-xs mt-2">
+    @for (item of report.sub_categories; track item) {
+    @if(item.endsWith('OTHER') && report.sub_category_remark) {
+    <span
+      class="flex flex-shrink px-1.5 py-1 rounded-md items-center bg-blue-200 text-blue-600 border border-solid border-blue-50"
+    >
+      Lainnya: {{ report.sub_category_remark | subCategoryTranslate }}</span
+    >
+    } @else {
+    <span
+      class="flex flex-shrink px-1.5 py-1 rounded-md items-center bg-blue-200 text-blue-600 border border-solid border-blue-50"
+    >
+      {{ item | subCategoryTranslate }}</span
+    >
+    } }
+  </div>
+  }
 </div>
 <div class="px-4 pt-2 pb-2 text-right flex flex-row items-center justify-end">
   <p class="font-bold">{{ report.total_reaction }}</p>

@@ -9,10 +9,9 @@
     >
       <span class="sr-only">Buka menu</span>
       <svg
-        class="w-5 h-5"
+        class="w-5 h-5 fill-white"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
         viewBox="0 0 16 3"
       >
         <path
@@ -45,6 +44,7 @@
   <app-report-info-card
     [report]="report"
     [userId]="userId"
+    [showSubCategories]="false"
     (clicked)="goToReportDetail($event)"
     (liked)="likeReport($event)"
     (unliked)="unlikeReport($event)"

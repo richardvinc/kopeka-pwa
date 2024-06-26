@@ -35,7 +35,7 @@ export class ExplorePageComponent {
     private notificationService: NotificationService,
     private userService: UserService
   ) {
-    this.appConfigService.setPageTitle('Utama');
+    this.appConfigService.setPageTitle('Laporan Terkini');
     this.getReportData();
     this.user = this.userService.getUser();
   }

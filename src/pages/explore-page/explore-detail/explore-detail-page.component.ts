@@ -34,6 +34,7 @@ import {
 })
 export class ExploreDetailPageComponent implements OnInit, OnDestroy {
   isLoading = false;
+  showDropdownMenu = false;
   report: Report | null = null;
   userId: string = this.userService.getUser()?.id ?? '';
   nearbyReports: Report[] = [];
@@ -61,7 +62,7 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private userService: UserService
   ) {
-    this.appConfigService.setPageTitle('Report Detail');
+    this.appConfigService.setPageTitle('Detail Laporan');
     this.appConfigService.setShowBackButton(true);
   }
 
@@ -72,6 +73,27 @@ export class ExploreDetailPageComponent implements OnInit, OnDestroy {
 
   getReportDetailData(reportId: string) {
     return this.reportService.getReportDetail(reportId);
+  }
+
+  deleteReport() {
+    if (!this.report) return;
+
+    this.reportService.deleteReport(this.report.id).subscribe({
+      next: () => {
+        this.router.navigate(['/explore']);
+        this.notificationService.showNotification(
+          'Laporan terhapus',
+          NotificationType.SNACKBAR_SUCCESS
+        );
+      },
+      error: (error) => {
+        console.error(error);
+        this.notificationService.showNotification(
+          'Gagal menghapus laporan.',
+          NotificationType.SNACKBAR_ERROR
+        );
+      },
+    });
   }
 
   likeReport() {

@@ -1,5 +1,13 @@
 const appChangelog = [
   {
+    version: '1.3.0',
+    changes: [
+      'Penambahan fitur detail laporan',
+      'Penambahan fallback sat gambar tidak tersedia',
+      'Penambahan fitur hapus laporan pada halaman detail laporan',
+    ],
+  },
+  {
     version: '1.2.6',
     changes: [
       'Perbaikan bug like tidak tersimpan',
