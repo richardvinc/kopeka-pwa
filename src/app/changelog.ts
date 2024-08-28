@@ -1,5 +1,9 @@
 const appChangelog = [
   {
+    version: '1.4.0',
+    changes: ['Menonaktifkan fitur mengirim lokasi pengguna secara otomatis'],
+  },
+  {
     version: '1.3.0',
     changes: [
       'Penambahan fitur detail laporan',
