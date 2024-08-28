@@ -1,7 +1,13 @@
 import { environment } from 'src/environments/environment';
 
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { ReportService } from '@app/libs/reports/report.service';
@@ -18,7 +24,7 @@ type LatLngWithReportId = google.maps.LatLngLiteral & { reportId: string };
   templateUrl: './map-page.component.html',
   imports: [GoogleMap, MapMarker, CommonModule, MapAdvancedMarker],
 })
-export class MapPageComponent implements AfterViewInit {
+export class MapPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild('mapContainer') mapContainerRef: ElementRef | undefined =
     undefined;
   @ViewChild('googleMap') mapRef: GoogleMap | undefined = undefined;
@@ -75,6 +81,10 @@ export class MapPageComponent implements AfterViewInit {
         this.updateUserPosition();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.locationService.clearWatch();
   }
 
   public onMarkerClick(marker: LatLngWithReportId) {

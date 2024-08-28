@@ -27,7 +27,7 @@ export class ContainerComponent {
       this.locationService.startPostingUserLocation(
         this.user.active_campaign_id
       );
-      this.locationService.watchPosition(() => {});
+      // this.locationService.watchPosition(() => {});
     }
   }
 }

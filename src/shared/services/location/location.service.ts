@@ -32,9 +32,10 @@ export class LocationService {
         this.currentLocation = position;
         console.log('User position updated: ', position);
         callback(position);
-        if (this.campaignId) {
-          this.postUserCampaignLocation(position, this.campaignId);
-        }
+
+        // if (this.campaignId) {
+        //   this.postUserCampaignLocation(position, this.campaignId);
+        // }
       },
       (err) => {
         console.log(err);

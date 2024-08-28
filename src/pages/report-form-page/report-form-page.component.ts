@@ -90,8 +90,8 @@ export class ReportFormPageComponent {
       alert,
       {
         enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 10,
+        timeout: 30000,
+        maximumAge: 15000,
       }
     );
   }
