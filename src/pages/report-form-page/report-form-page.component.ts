@@ -44,7 +44,7 @@ export class ReportFormPageComponent {
 
   // form properties
   isSubmitting = false;
-  isSubCategoryAllowed = false;
+  isSubCategoryAllowed = true;
   isCategoryOtherSelected = false;
   isSubCategoryOtherSelected = false;
   reportForm: FormGroup = new FormGroup({

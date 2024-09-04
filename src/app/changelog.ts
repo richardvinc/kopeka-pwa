@@ -1,5 +1,9 @@
 const appChangelog = [
   {
+    version: '1.4.1',
+    changes: ['Menyalakan sub kategori otomatis saat memilih kategori'],
+  },
+  {
     version: '1.4.0',
     changes: ['Menonaktifkan fitur mengirim lokasi pengguna secara otomatis'],
   },
