@@ -65,22 +65,40 @@ export class CampaignPageComponent {
       .createCampaign({
         description: campaignDescription ?? '',
       })
-      .subscribe((campaign) => {
-        this.notificationService.showNotification(
-          'Kampanye berhasil dibuat. Ayo bagikan kode kampanye ke temanmu yang lain!',
-          NotificationType.SNACKBAR_SUCCESS
-        );
-        this.startPostingUserLocation();
-        this.getUserActiveCampaign();
+      .subscribe({
+        next: (campaign) => {
+          this.notificationService.showNotification(
+            'Kampanye berhasil dibuat. Ayo bagikan kode kampanye ke temanmu yang lain!',
+            NotificationType.SNACKBAR_SUCCESS
+          );
+          this.startPostingUserLocation();
+          this.getUserActiveCampaign();
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.notificationService.showNotification(
+            'Gagal membuat kampanye',
+            NotificationType.SNACKBAR_ERROR
+          );
+        },
       });
   }
 
   joinCampaign(): void {
     if (this.campaignCode.length !== 6) return;
     this.isLoading = true;
-    this.campaignService.joinCampaign(this.campaignCode).subscribe(() => {
-      this.startPostingUserLocation();
-      this.getUserActiveCampaign();
+    this.campaignService.joinCampaign(this.campaignCode).subscribe({
+      next: () => {
+        this.startPostingUserLocation();
+        this.getUserActiveCampaign();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.notificationService.showNotification(
+          'Kode kampanye tidak valid',
+          NotificationType.SNACKBAR_ERROR
+        );
+      },
     });
   }
 
@@ -89,16 +107,23 @@ export class CampaignPageComponent {
     if (!answer) return;
 
     if (!this.campaign?.shortcode) return;
-    this.campaignService
-      .leaveCampaign(this.campaign.shortcode)
-      .subscribe(() => {
+    this.campaignService.leaveCampaign(this.campaign.shortcode).subscribe({
+      next: () => {
         this.stopPostingUserLocation();
         this.notificationService.showNotification(
           'Berhasil keluar kampanye',
           NotificationType.SNACKBAR_SUCCESS
         );
         this.getUserActiveCampaign();
-      });
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.notificationService.showNotification(
+          'Gagal keluar kampanye',
+          NotificationType.SNACKBAR_ERROR
+        );
+      },
+    });
   }
 
   endCampaign(): void {
@@ -107,15 +132,24 @@ export class CampaignPageComponent {
 
     if (!this.campaign?.shortcode) return;
     this.isLoading = true;
-    this.campaignService.endCampaign(this.campaign.id).subscribe(() => {
-      this.notificationService.showNotification(
-        'Kampanye berhasil diakhiri',
-        NotificationType.SNACKBAR_SUCCESS
-      );
-      this.getUserActiveCampaign();
-      this.isLoading = false;
-      this.isCampaigning = false;
-      this.campaign = null;
+    this.campaignService.endCampaign(this.campaign.id).subscribe({
+      next: () => {
+        this.notificationService.showNotification(
+          'Kampanye berhasil diakhiri',
+          NotificationType.SNACKBAR_SUCCESS
+        );
+        this.getUserActiveCampaign();
+        this.isLoading = false;
+        this.isCampaigning = false;
+        this.campaign = null;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.notificationService.showNotification(
+          'Gagal mengakhiri kampanye',
+          NotificationType.SNACKBAR_ERROR
+        );
+      },
     });
   }
 
@@ -164,29 +198,41 @@ export class CampaignPageComponent {
           this.userId = user.id;
           this.campaignService
             .getCampaignById(user.active_campaign_id)
-            .subscribe((campaign) => {
-              if (campaign) {
-                this.isCampaigning = true;
-                this.campaign = campaign;
-                this.campaignRunningTime =
-                  this.convertDateToHumanReadableDuration(
-                    new Date(campaign.created_at)
+            .subscribe({
+              next: (campaign) => {
+                if (campaign) {
+                  this.isCampaigning = true;
+                  this.campaign = campaign;
+                  this.campaignRunningTime =
+                    this.convertDateToHumanReadableDuration(
+                      new Date(campaign.created_at)
+                    );
+                  this.campaignToEndTime =
+                    this.convertDateToHumanReadableDuration(
+                      new Date(campaign.expired_at)
+                    );
+                  this.isLoading = false;
+                  this.isCampaignExpired = moment().isAfter(
+                    campaign.expired_at
                   );
-                this.campaignToEndTime =
-                  this.convertDateToHumanReadableDuration(
-                    new Date(campaign.expired_at)
-                  );
+                  this.reportService
+                    .getReportsByCampaignId(campaign.id)
+                    .subscribe((reports) => {
+                      this.campaignReports = reports;
+                    });
+                } else {
+                  this.isLoading = false;
+                  this.isCampaigning = false;
+                  this.campaign = null;
+                }
+              },
+              error: (err) => {
                 this.isLoading = false;
-                this.isCampaignExpired = moment().isAfter(campaign.expired_at);
-                this.reportService
-                  .getReportsByCampaignId(campaign.id)
-                  .subscribe((reports) => {
-                    this.campaignReports = reports;
-                  });
-              } else {
-                this.isCampaigning = false;
-                this.campaign = null;
-              }
+                this.notificationService.showNotification(
+                  'Gagal memuat data kampanye',
+                  NotificationType.SNACKBAR_ERROR
+                );
+              },
             });
         } else {
           this.isLoading = false;

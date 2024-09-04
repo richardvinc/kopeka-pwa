@@ -1,5 +1,11 @@
 const appChangelog = [
   {
+    version: '1.4.2',
+    changes: [
+      'Menampilkan pesan error saat memasukkan kode kampanye yang salah',
+    ],
+  },
+  {
     version: '1.4.1',
     changes: ['Menyalakan sub kategori otomatis saat memilih kategori'],
   },
