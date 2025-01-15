@@ -43,6 +43,8 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
     gmpDraggable: false,
   };
   isReadyToDragMap = true;
+  // whether user is moving the map
+  isMapDirty = false;
   isReadyToUpdateUserPosition = true;
   userPosition: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
   parser = new DOMParser();
@@ -73,7 +75,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
     this.appConfigService.setPageTitle('Peta');
     this.user = this.userService.getUser();
     this.locationService.watchPosition((position) => {
-      if (this.isReadyToUpdateUserPosition) {
+      if (this.isReadyToUpdateUserPosition && !this.isMapDirty) {
         this.center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -131,6 +133,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
   }
 
   moveMap() {
+    this.isMapDirty = true;
     const center = this.mapRef?.getCenter();
     if (center) {
       this.center = center.toJSON();
@@ -160,6 +163,7 @@ export class MapPageComponent implements AfterViewInit, OnDestroy {
   }
 
   resetMapLocation() {
-    this.center = this.userPosition;
+    this.mapRef?.panTo(this.userPosition);
+    this.isMapDirty = false;
   }
 }

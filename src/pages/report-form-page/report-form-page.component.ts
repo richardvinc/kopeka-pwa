@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { GoogleMap, MapMarker } from '@angular/google-maps';
+import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { REPORT_SUB_CATEGORIES } from '@app/libs/reports/interfaces/report.interface';
 import { ReportFormService } from '@app/libs/reports/report-form.service';
@@ -23,7 +23,13 @@ import {
   selector: 'app-report-form-page',
   standalone: true,
   templateUrl: './report-form-page.component.html',
-  imports: [CommonModule, ReactiveFormsModule, GoogleMap, MapMarker],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    GoogleMap,
+    MapMarker,
+    MapAdvancedMarker,
+  ],
 })
 export class ReportFormPageComponent {
   // map properties
@@ -40,7 +46,20 @@ export class ReportFormPageComponent {
   markerOption: google.maps.marker.AdvancedMarkerElementOptions = {
     gmpDraggable: false,
   };
+  markerPosition: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
   userPosition: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
+  parser = new DOMParser();
+  pinHtmlElement = this.parser.parseFromString(
+    `<span class="relative flex h-3 w-3">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+  </span>`,
+    'text/html'
+  ).documentElement;
+  userMarkerOption: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false,
+    content: this.pinHtmlElement,
+  };
 
   // form properties
   isSubmitting = false;
@@ -57,6 +76,7 @@ export class ReportFormPageComponent {
 
   categories: { id: string; name: string; selected: boolean }[] = [
     { id: 'SIDEWALK', name: 'Trotoar', selected: false },
+    { id: 'GUIDING_BLOCK', name: 'Guiding Block', selected: false },
     { id: 'ZEBRA_CROSS', name: 'Zebra Cross', selected: false },
     { id: 'PELICAN_CROSSING', name: 'Pelican Crossing', selected: false },
     { id: 'PEDESTRIAN_BRIDGE', name: 'JPO', selected: false },
@@ -86,6 +106,7 @@ export class ReportFormPageComponent {
           lng: position.coords.longitude,
         };
         this.userPosition = this.center;
+        this.markerPosition = this.center;
       },
       alert,
       {
@@ -114,10 +135,18 @@ export class ReportFormPageComponent {
   }
 
   onCenterChanged() {
-    this.userPosition = {
-      lat: this.mapRef!.getCenter()?.lat() || this.userPosition.lat,
-      lng: this.mapRef!.getCenter()?.lng() || this.userPosition.lng,
+    this.markerPosition = {
+      lat: this.mapRef!.getCenter()?.lat() || this.markerPosition.lat,
+      lng: this.mapRef!.getCenter()?.lng() || this.markerPosition.lng,
     };
+  }
+
+  resetMapLocation() {
+    console.log('Resetting map location');
+    console.log('User position:', this.center);
+    this.mapRef?.panTo(this.center);
+    this.markerPosition = this.userPosition;
+    console.log('User position:', this.center);
   }
 
   retakePhoto() {
@@ -184,8 +213,8 @@ export class ReportFormPageComponent {
         categoryRemark: this.categoryRemark,
         subCategories: this.subCategories,
         subCategoryRemark: this.subCategoryRemark,
-        latitude: this.userPosition.lat,
-        longitude: this.userPosition.lng,
+        latitude: this.markerPosition.lat,
+        longitude: this.markerPosition.lng,
       })
       .subscribe({
         next: (response) => {
@@ -214,6 +243,16 @@ export class ReportFormPageComponent {
           this.condition === 'GOOD'
             ? this.buildSubCategories([...REPORT_SUB_CATEGORIES.SIDEWALK.GOOD])
             : this.buildSubCategories([...REPORT_SUB_CATEGORIES.SIDEWALK.BAD]);
+        break;
+      case 'GUIDING_BLOCK':
+        this.subCategoryEntries =
+          this.condition === 'GOOD'
+            ? this.buildSubCategories([
+                ...REPORT_SUB_CATEGORIES.GUIDING_BLOCK.GOOD,
+              ])
+            : this.buildSubCategories([
+                ...REPORT_SUB_CATEGORIES.GUIDING_BLOCK.BAD,
+              ]);
         break;
       case 'ZEBRA_CROSS':
         this.subCategoryEntries =

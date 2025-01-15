@@ -12,6 +12,12 @@ export class ReportUtils {
 
       case 'SIDEWALK_BROKEN':
         return 'Rusak';
+      case 'SIDEWALK_SLIPPERY':
+        return 'Licin';
+      case 'SIDEWALK_DIRTY':
+        return 'Kotor';
+      case 'SIDEWALK_NARROW':
+        return 'Sempit';
       case 'SIDEWALK_BROKEN_GUIDING_BLOCK':
         return 'Guiding block rusak';
       case 'SIDEWALK_MISSING':
@@ -24,11 +30,28 @@ export class ReportUtils {
         return 'Terhalang kendaraan';
       case 'SIDEWALK_OBSTRUCTED_PEDDLERS':
         return 'Terhalang pedagang';
+      case 'SIDEWALK_OBSTRUCTED_OTHERS':
+        return 'Terhalang objek lainnya';
       case 'SIDEWALK_DARK':
         return 'Gelap';
-      case 'SIDEWALK_SLIPPERY':
-        return 'Licin';
       case 'SIDEWALK_OTHER':
+        return 'Lainnya';
+
+      case 'GUIDING_BLOCK_MISSING':
+        return 'Tidak ada';
+      case 'GUIDING_BLOCK_BROKEN':
+        return 'Rusak';
+      case 'GUIDING_BLOCK_SLIPPERY':
+        return 'Licin';
+      case 'GUIDING_BLOCK_OBSTRUCTED_TREE':
+        return 'Terhalang pohon';
+      case 'GUIDING_BLOCK_OBSTRUCTED_MOTORCYCLE':
+        return 'Terhalang kendaraan';
+      case 'GUIDING_BLOCK_OBSTRUCTED_PEDDLERS':
+        return 'Terhalang pedagang';
+      case 'GUIDING_BLOCK_OBSTRUCTED_OTHERS':
+        return 'Terhalang objek lainnya';
+      case 'GUIDING_BLOCK_OTHER':
         return 'Lainnya';
 
       case 'PELICAN_CROSSING_BROKEN':
@@ -80,6 +103,11 @@ export class ReportUtils {
         return 'Ada guiding block';
       case 'SIDEWALK_GUIDING_BLOCK_CORRECT':
         return 'Guiding block tepat guna';
+
+      case 'GUIDING_BLOCK_NO_OBSTACLE':
+        return 'Tidak ada halangan';
+      case 'GUIDING_BLOCK_CORRECT':
+        return 'Tepat guna';
 
       case 'PELICAN_CROSSING_HELPFUL':
         return 'Membantu';

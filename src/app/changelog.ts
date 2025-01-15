@@ -1,5 +1,15 @@
 const appChangelog = [
   {
+    version: '1.5',
+    changes: [
+      'Menambahkan kategori "Guiding Block"',
+      'Menonaktifkan fitur campaign',
+      'Memperbaiki tampilan gambar pada halaman utama agar tidak tertarik lebar',
+      'Menambahkan keterangan lokasi pengguna dan tombol reset pada halaman tambah laporan',
+      'Memperbaiki bug di mana lokasi pengguna akan tereset setiap beberapa saat di halaman peta',
+    ],
+  },
+  {
     version: '1.4.2',
     changes: [
       'Menampilkan pesan error saat memasukkan kode kampanye yang salah',

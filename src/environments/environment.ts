@@ -3,7 +3,7 @@ import { IEnvironment } from './IEnvironment';
 export const environment: IEnvironment = {
   production: false,
   appName: 'Kopeka-local',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:4000',
   env: 'local',
   firebase: {
     projectId: 'kopeka-dev-52b32',
