@@ -11,6 +11,7 @@ import {
 
 import { GetLatestReportDTO } from './dto/get-latest-report.dto';
 import { GetNearbyReportsDTO } from './dto/get-nearby-report.dto';
+import { GetPastReportsDTO } from './dto/get-past-reports.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,22 @@ export class ReportService {
   ): Observable<{ reports: Report[]; nextToken: string | null }> {
     return this.http
       .get<BaseResponsePagination<Report[]>>(`${this.baseUrl}/reports/latest`, {
+        params: {
+          next_token: dto.next_token ?? '',
+        },
+      })
+      .pipe(
+        map((res) => {
+          return { reports: res.data, nextToken: res.nextToken };
+        })
+      );
+  }
+
+  getPastReports(
+    dto: GetPastReportsDTO
+  ): Observable<{ reports: Report[]; nextToken: string | null }> {
+    return this.http
+      .get<BaseResponsePagination<Report[]>>(`${this.baseUrl}/reports/me`, {
         params: {
           next_token: dto.next_token ?? '',
         },

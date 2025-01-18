@@ -13,15 +13,15 @@ import {
   NotificationType,
 } from '@app/shared/services/notification/notification.service';
 
-import { ReportCardItemListComponenet } from '../../components/reports/report-card-item-list/report-card-item-list.component';
+import { ReportCardItemListComponenet } from '../../../components/reports/report-card-item-list/report-card-item-list.component';
 
 @Component({
-  selector: 'app-explore-page',
+  selector: 'past-reports-page',
   standalone: true,
-  templateUrl: './explore-page.component.html',
+  templateUrl: '../explore-page.component.html',
   imports: [RouterLink, ReportCardItemListComponenet, InfiniteScrollDirective],
 })
-export class ExplorePageComponent {
+export class PastReportsPageComponent {
   reports: Report[] = [];
   nextToken: string | null = null;
   isGettingData = false;
@@ -35,9 +35,9 @@ export class ExplorePageComponent {
     private notificationService: NotificationService,
     private userService: UserService
   ) {
-    this.appConfigService.setPageTitle('Laporan Terkini');
-    this.getReportData();
+    this.appConfigService.setPageTitle('Laporan Saya');
     this.user = this.userService.getUser();
+    this.getPastReportsData();
   }
 
   goToDetail(reportId: string) {
@@ -64,7 +64,7 @@ export class ExplorePageComponent {
           'Laporan terhapus',
           NotificationType.SNACKBAR_SUCCESS
         );
-        if (this.reports.length < 5) this.getReportData();
+        if (this.reports.length < 5) this.getPastReportsData();
       },
       error: (error) => {
         console.error(error);
@@ -81,10 +81,10 @@ export class ExplorePageComponent {
       return;
     }
     this.isGettingData = true;
-    this.getReportData();
+    this.getPastReportsData();
   }
 
-  getReportData() {
+  getPastReportsData() {
     if (this.isAllDataLoaded) {
       return;
     }

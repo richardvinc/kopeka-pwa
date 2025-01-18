@@ -39,27 +39,27 @@ export const routes: Routes = [
             '../pages/explore-page/explore-detail/explore-detail-page.component'
           ).then((m) => m.ExploreDetailPageComponent),
       },
-      {
-        path: 'campaign',
-        loadComponent: () =>
-          import('../pages/campaign-page/campaign-page.component').then(
-            (m) => m.CampaignPageComponent
-          ),
-      },
-      {
-        path: 'campaign/onboarding',
-        loadComponent: () =>
-          import(
-            '../pages/campaign-page/campaign-onboarding-page/campaign-onboarding-page.component'
-          ).then((m) => m.CampaignOnboardingPageComponent),
-      },
-      {
-        path: 'campaign/past',
-        loadComponent: () =>
-          import(
-            '../pages/campaign-page/past-campaigns-page/past-campaigns-page.component'
-          ).then((m) => m.PastCampaignsPageComponent),
-      },
+      // {
+      //   path: 'campaign',
+      //   loadComponent: () =>
+      //     import('../pages/campaign-page/campaign-page.component').then(
+      //       (m) => m.CampaignPageComponent
+      //     ),
+      // },
+      // {
+      //   path: 'campaign/onboarding',
+      //   loadComponent: () =>
+      //     import(
+      //       '../pages/campaign-page/campaign-onboarding-page/campaign-onboarding-page.component'
+      //     ).then((m) => m.CampaignOnboardingPageComponent),
+      // },
+      // {
+      //   path: 'campaign/past',
+      //   loadComponent: () =>
+      //     import(
+      //       '../pages/campaign-page/past-campaigns-page/past-campaigns-page.component'
+      //     ).then((m) => m.PastCampaignsPageComponent),
+      // },
       {
         path: 'map',
         loadComponent: () =>
@@ -80,6 +80,13 @@ export const routes: Routes = [
           import('../pages/profile-page/profile-page.component').then(
             (m) => m.ProfilePageComponent
           ),
+      },
+      {
+        path: 'profile/report/me',
+        loadComponent: () =>
+          import(
+            '../pages/explore-page/past-reports/past-reports-page.component'
+          ).then((m) => m.PastReportsPageComponent),
       },
       {
         path: 'profile/changelog',

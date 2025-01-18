@@ -1,5 +1,9 @@
 const appChangelog = [
   {
+    version: '1.6',
+    changes: ['Menambahkan fitur "laporan saya" di halaman profil'],
+  },
+  {
     version: '1.5',
     changes: [
       'Menambahkan kategori "Guiding Block"',

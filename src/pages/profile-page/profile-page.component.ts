@@ -30,8 +30,8 @@ export class ProfilePageComponent {
     });
   }
 
-  async goToPastCampaign() {
-    this.router.navigate(['/campaign/past']);
+  async goToYourReportPage() {
+    this.router.navigate(['profile/report/me']);
   }
 
   async goToChangelogPage() {
