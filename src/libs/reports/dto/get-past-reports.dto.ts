@@ -1,3 +1,3 @@
-export interface GetPastReportsDTO {
+export interface GetMyReportsDTO {
   next_token?: string;
 }

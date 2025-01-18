@@ -36,6 +36,7 @@ export class PastReportsPageComponent {
     private userService: UserService
   ) {
     this.appConfigService.setPageTitle('Laporan Saya');
+    this.appConfigService.setShowBackButton(true);
     this.user = this.userService.getUser();
     this.getPastReportsData();
   }
@@ -89,7 +90,7 @@ export class PastReportsPageComponent {
       return;
     }
     this.reportService
-      .getLatestReports({ next_token: this.nextToken ?? undefined })
+      .getMyReports({ next_token: this.nextToken ?? undefined })
       .pipe(
         catchError((error) => {
           console.error(error);

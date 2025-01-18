@@ -11,7 +11,7 @@ import {
 
 import { GetLatestReportDTO } from './dto/get-latest-report.dto';
 import { GetNearbyReportsDTO } from './dto/get-nearby-report.dto';
-import { GetPastReportsDTO } from './dto/get-past-reports.dto';
+import { GetMyReportsDTO } from './dto/get-past-reports.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -36,8 +36,8 @@ export class ReportService {
       );
   }
 
-  getPastReports(
-    dto: GetPastReportsDTO
+  getMyReports(
+    dto: GetMyReportsDTO
   ): Observable<{ reports: Report[]; nextToken: string | null }> {
     return this.http
       .get<BaseResponsePagination<Report[]>>(`${this.baseUrl}/reports/me`, {
