@@ -38,6 +38,7 @@
           "configurations": {
             "production": {
               "outputPath": "dist/kopeka-pwa-prod",
+              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",

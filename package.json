@@ -10,7 +10,7 @@
     "build:prod": "ng build --configuration production",
     "deploy": "ng build --configuration development && firebase deploy --only hosting:development",
     "deploy:dev": "ng build --configuration development && firebase deploy --only hosting:development",
-    "deploy:prod": "ng build --prod --configuration production && firebase deploy --only hosting:production",
+    "deploy:prod": "ng build --configuration production && firebase deploy --only hosting:production",
     "watch": "ng build --watch --configuration local",
     "watch:dev": "ng build --watch --configuration development",
     "test": "ng test"
